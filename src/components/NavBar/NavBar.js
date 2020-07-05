@@ -9,7 +9,7 @@ const NavBar = (user = '') => {
       <p><Link to="/">Home</Link></p>
       <p><Link to="/admin">Admin</Link></p>
       <p><Link to="/cashier">Empleado</Link></p>
-      <p><Link to="/cart">Carrito</Link></p>
+      <p><Link to="/cart">Registro producto</Link></p>
     </div>
   );
 };
