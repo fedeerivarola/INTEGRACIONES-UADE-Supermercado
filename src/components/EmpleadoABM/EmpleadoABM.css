@@ -1,0 +1,75 @@
+.menu-empleados {
+    position: absolute;
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+    justify-items: center;
+}
+
+.botonera-empleados {
+    margin: 10px;
+}
+
+.list-empleados {
+    height: 400px;
+    width: 800px;
+    background: rgb(39, 162, 199) 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.fila-empleado {
+    background-color: gainsboro;
+}
+
+.profile-empleado {
+    height: 400px;
+    width: 400px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+}
+
+.modal {
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+}
+
+/* Tamaño del scroll */
+
+.list-empleados::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+
+.list-empleados::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.list-empleados::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+    border-radius: 4px;
+}
+
+.list-empleados::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos track de scroll */
+
+.list-empleados::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.list-empleados::-webkit-scrollbar-track:hover, .list-empleados::-webkit-scrollbar-track:active {
+    background: transparent;
+}
