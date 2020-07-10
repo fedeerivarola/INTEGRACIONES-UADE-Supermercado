@@ -1,9 +1,16 @@
 .menu-empleados {
-    position: absolute;
-    display: 'flex';
+    display: flex;
+    flex-direction: column;
     align-items: 'center';
     justify-content: 'center';
     justify-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+}
+
+p {
+    color: black;
 }
 
 .botonera-empleados {
@@ -25,18 +32,32 @@
 }
 
 .profile-empleado {
-    height: 400px;
+    height: 500px;
     width: 400px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    margin-top: 100px;
+}
+
+.formNewEmp {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .modal {
+    margin: 0 auto;
     display: 'flex';
     align-items: 'center';
     justify-content: 'center';
+    top: 50%;
+    left: 50%;
 }
 
 /* Tamaño del scroll */
