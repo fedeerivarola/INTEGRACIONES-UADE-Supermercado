@@ -1,0 +1,21 @@
+.ventas{
+    padding: 60px;
+    margin: 0 auto;
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.list-productos {
+
+    left: 25%;
+    height: 400px;
+    width: 800px;
+    /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
+    background: brown;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+    overflow-y: scroll;
+}

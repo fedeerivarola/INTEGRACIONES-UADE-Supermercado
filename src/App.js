@@ -1,22 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavBar, Cart, AdminMain } from './components'
+import { NavBar, Cart, AdminMain, AdminLogin, Ventas } from './components';
+import banner from './assets/kiwki2.jpg'
 
 function App() {
-  return (
-    <div className="App">
+
+  const [logok, setLogok] = useState(null);
+
+  if (logok) {
+    return (
+      <div className="App">
         <Router>
           <NavBar />
           <Switch>
-            <Route exact path="/" render={() => <p>Wellcome</p>} />
+            <Route exact path="/cashier" render={() => <Ventas />} />
             <Route exact path="/admin" render={() => <AdminMain />} />
-            <Route exact path="/cashier" render={() => <p>Vendedor</p>} />
-            <Route exact path="/cart"><ProductRegister/></Route>
+            <Route exact path="/finanzas" render={() => <h2>CONTROL DE FINANZAS DIARIAS</h2>} />
+            <Route exact path="/products"><ProductRegister /></Route>
           </Switch>
         </Router>
-    </div>
-  );
+      </div>
+    );
+  } else {
+    return (
+      <div className="login">
+        <div className="banner">
+          <img src={banner} alt='banner' />
+        </div>
+        <AdminLogin login={() => setLogok('ok')} />
+      </div>
+    )
+  }
 }
 
 function ProductRegister() {
@@ -28,7 +43,7 @@ function ProductRegister() {
         <label>
           Código del producto:
         <input type="text" name="code" />
-      </label>
+        </label>
       </div>
       <div>
         <label>
@@ -50,7 +65,7 @@ function ProductRegister() {
       </div>
       <div>
         <input type="submit" value="Submit" />
-      </div>      
+      </div>
     </form>
   );
 }

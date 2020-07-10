@@ -25,12 +25,12 @@ const AdminLogin = (props) => {
     return (
         <div className="AdminLogin">
             <form>
-                <p>Usuario</p>
+                <h3>Usuario</h3>
                 <input onChange={(e) => handleUser(e)} />
-                <p>Password</p>
+                <h3>Password</h3>
                 <input type="password" onChange={(e) => handlePass(e)} />
             </form>
-            <button onClick={() => handleLogin()}>INGRESAR</button>
+            <button style={{marginTop: "20px"}} onClick={() => handleLogin()}>INGRESAR</button>
         </div>
     )
 }

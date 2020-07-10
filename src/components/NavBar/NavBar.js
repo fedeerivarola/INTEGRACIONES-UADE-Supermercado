@@ -6,10 +6,10 @@ const NavBar = (user = '') => {
 
   return (
     <div className="Navbar">
-      <p><Link to="/">Home</Link></p>
-      <p><Link to="/admin">Admin</Link></p>
-      <p><Link to="/cashier">Empleado</Link></p>
-      <p><Link to="/cart">Registro producto</Link></p>
+      <p><Link to="/cashier">Ventas</Link></p>
+      <p><Link to="/admin">ABM Empleado</Link></p>
+      <p><Link to="/finanzas">Finanzas</Link></p>
+      <p><Link to="/products">Registro producto</Link></p>
     </div>
   );
 };
