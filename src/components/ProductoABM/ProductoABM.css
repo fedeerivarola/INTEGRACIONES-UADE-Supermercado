@@ -17,10 +17,10 @@ p {
     margin: 10px;
 }
 
-.list-productos {
+.list-productos-registro {
     height: 400px;
     width: 800px;
-    background: rgb(39, 162, 199) 0% 0% no-repeat padding-box;
+    background: rgb(146, 151, 196);
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;

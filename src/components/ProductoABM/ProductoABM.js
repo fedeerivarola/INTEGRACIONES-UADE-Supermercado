@@ -95,13 +95,14 @@ const ProductoABM = (props) => {
                     setOpenModal(true);
                     setSelectedProd(e);
                 }}>
-                <ListItemAvatar className="w-24">
-                    <Avatar />
-                </ListItemAvatar>
                 <ListItemText
                     primary={e.nombre}
                     secondary={e.codigo}
                 />
+                <p>Cantidad:</p>
+                 <p>{e.cantidad}</p>
+                <p>Precio:</p>
+                 <p>{e.precio}</p>
                 <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete" onClick={() => deleteProducto(e)}>
                         <DeleteIcon />
@@ -115,7 +116,7 @@ const ProductoABM = (props) => {
         <div className="menu-productos">
 
             <h2>Lista de productos</h2>
-            <div className="list-productos">
+            <div className="list-productos-registro">
                 <List dense={dense}>
                     {productos.map((e) => renderList(e))}
                 </List>
