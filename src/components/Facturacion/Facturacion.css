@@ -1,0 +1,105 @@
+.facturacion {
+    display: flex;
+    flex-direction: column;
+    align-items: 'center';
+    justify-content: 'center';
+    justify-items: center;
+    padding: 10px;
+    position: relative;
+}
+
+.row-bottom-margin-20 { margin-bottom:20px; }
+
+.row-bottom-margin-10 { margin-bottom:10px; }
+
+.facturacion-contado {
+    height: 300px;
+    width: 800px;
+    background: rgb(106, 184, 113);
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    opacity: 1;
+   
+}
+
+.facturacion-tarjeta {
+    height: 300px;
+    width: 800px;
+    background: rgb(196, 156, 146);
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    opacity: 1;
+
+}
+
+.fila-producto {
+    background-color: gainsboro;
+}
+
+.profile-producto {
+    height: 500px;
+    width: 400px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+    margin: 0 auto;
+    padding: 10px;
+    position: relative;
+    margin-top: 100px;
+}
+
+.formNewProd {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.modal {
+    margin: 0 auto;
+    display: 'flex';
+    align-items: 'center';
+    justify-content: 'center';
+    top: 50%;
+    left: 50%;
+}
+
+/* Tamaño del scroll */
+
+.list-productos::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+
+.list-productos::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.list-productos::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+    border-radius: 4px;
+}
+
+.list-productos::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos track de scroll */
+
+.list-productos::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.list-productos::-webkit-scrollbar-track:hover, .list-productos::-webkit-scrollbar-track:active {
+    background: transparent;
+}

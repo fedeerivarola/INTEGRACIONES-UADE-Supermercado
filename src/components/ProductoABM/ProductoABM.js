@@ -9,7 +9,23 @@ const ProductoABM = (props) => {
 
     //const admin = props.admin;
 
-    const [productos, setProductos] = useState([]);
+    const [productos, setProductos] = useState([{
+        codigo: '001',
+        nombre: 'Detergente',
+        cantidad: '50',
+        precio: '$100,00'
+    }, {
+        codigo: '002',
+        nombre: 'Lavandina',
+        cantidad: '30',
+        precio: '$180,00'
+    },
+    , {
+        codigo: '003',
+        nombre: 'Fideos',
+        cantidad: '150',
+        precio: '$90,00'
+    }]);
     const [openModal, setOpenModal] = useState(false);
     const [dense, setDense] = React.useState(false);
     const [selectedProd, setSelectedProd] = useState(null);

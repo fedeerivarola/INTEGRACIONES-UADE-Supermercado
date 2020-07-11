@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavBar, Cart, AdminMain, AdminLogin, Ventas, ProductoABM} from './components';
+import { NavBar, AdminMain, AdminLogin, Ventas, ProductoABM, Facturacion} from './components';
 import banner from './assets/kiwki2.jpg'
 
 
@@ -18,7 +18,7 @@ function App() {
           <Switch>
             <Route exact path="/cashier" render={() => <Ventas />} />
             <Route exact path="/admin" render={() => <AdminMain />} />
-            <Route exact path="/finanzas" render={() => <h2>CONTROL DE FINANZAS DIARIAS</h2>} />
+            <Route exact path="/finanzas" render={() =><Facturacion/>} />
             <Route exact path="/products" render={() =><ProductoABM />} />
           </Switch>
         </Router>
