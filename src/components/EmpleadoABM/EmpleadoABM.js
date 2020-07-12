@@ -10,7 +10,6 @@ const EmpleadoABM = (props) => {
     //const admin = props.admin;
     const [empleados, setEmpleados] = useState(props.empleados);
     const [openModal, setOpenModal] = useState(false);
-    const [dense, setDense] = React.useState(false);
     const [selectedEmp, setSelectedEmp] = useState(null);
     const [newEmpleado, setNewEmpleado] = useState({ legajo: '', nombre: '', sector: '' });
 
@@ -109,7 +108,7 @@ const EmpleadoABM = (props) => {
 
             <h2>Lista de Empleados</h2>
             <div className="list-empleados">
-                <List dense={dense}>
+                <List>
                     {empleados.map((e) => renderList(e))}
                 </List>
             </div>
