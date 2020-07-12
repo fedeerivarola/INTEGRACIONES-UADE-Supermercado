@@ -1,21 +1,116 @@
-.ventas{
+.ventas {
     padding: 60px;
     margin: 0 auto;
     position: relative;
-    display:flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-.list-productos {
+/*SELECCION DE PRODUCTOS*/
 
-    left: 25%;
+.list-productos {
+    position: relative;
     height: 400px;
-    width: 800px;
+    width: 450px;
     /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
     background: brown;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.row-list {}
+
+.item-producto {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    height: 300px;
     overflow-y: scroll;
+}
+
+.bottom-list {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.addToTicket {}
+
+/*TICKET DE VENTA*/
+
+.ticket {
+    position: relative;
+    height: 400px;
+    width: 450px;
+    /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
+    background: yellowgreen;
+    box-shadow: 0px 3px 6px #00000029;
+    border-radius: 12px;
+    opacity: 1;
+    margin-left: 100px;
+}
+
+.bottom-ticket {
+    width: 100%;
+    margin: 25px;
+    position: absolute;
+    height: 30px;
+    bottom: 0;
+
+}
+
+label{
+    margin-right: 10px;
+}
+
+.inputCant{
+    width: 20px;
+    margin-right: 30px;
+}
+
+.clean-ticket {
+    width: 150px;
+    margin-left: 30px;
+    right: 0;
+}
+
+/* Tamaño del scroll */
+
+.item-producto::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+
+.item-producto::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.item-producto::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+    border-radius: 4px;
+}
+
+.item-producto::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos track de scroll */
+
+.item-producto::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+
+.item-producto::-webkit-scrollbar-track:hover, .item-producto::-webkit-scrollbar-track:active {
+    background: transparent;
 }
