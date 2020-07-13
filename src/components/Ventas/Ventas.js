@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Ventas.css'
 import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Payment from '../Payment/Payment';
 
-const Ventas = () => {
+const Ventas = (props) => {
 
-    const [productos, setProductos] = useState([
-        { id: '001', nombre: 'Birra', precio: '10', stock: '10' },
-        { id: '002', nombre: 'Papita', precio: '20', stock: '10' },
-        { id: '003', nombre: 'Chisito', precio: '20', stock: '10' },
-        { id: '004', nombre: 'Iphone 11', precio: '20', stock: '1' },
-        { id: '006', nombre: 'Manzana', precio: '20', stock: '100' },
-        { id: '007', nombre: 'Malboro Box', precio: '20', stock: '4' },
-        { id: '008', nombre: 'Falopa', precio: '50', stock: '0' }
-    ]);
-    const [itemsTicket, setItemsTicket] = React.useState();
+    console.log(props);
+    /*{"id":1,"name":"Papas fritas","sku":"ABC123DEF456","unitPrice":78.26,"stock":100,"category":"Congelados"}*/
+    // const [productos, setProductos] = useState([
+    //     { id: '001', name: 'Birra', unitPrice: '10', stock: '10' },
+    //     { id: '002', name: 'Papita', unitPrice: '20', stock: '10' },
+    //     { id: '003', name: 'Chisito', unitPrice: '20', stock: '10' },
+    //     { id: '004', name: 'Iphone 11', unitPrice: '20', stock: '1' },
+    //     { id: '006', name: 'Manzana', unitPrice: '20', stock: '100' },
+    //     { id: '007', name: 'Malboro Box', unitPrice: '20', stock: '4' },
+    //     { id: '008', name: 'Falopa', unitPrice: '50', stock: '0' }
+    // ]);
+    const [productos, setProductos] = useState(props.productos);
+    const [itemsTicket, setItemsTicket] = useState();
     const [selectedItem, setSelectedItem] = useState(null);
     const [cantidadItem, setCantidadItem] = useState(1);
+    const vendedor = 'admin'
+    const [step, setStep] = useState('0');
+    const [ticket, setTicket] = useState(null);
 
     function renderList(e) {
         let id = null
@@ -25,11 +32,11 @@ const Ventas = () => {
             return (
                 <ListItem className="row-list" key={e.id} button selected={true}>
                     <ListItemText key={`name-${e.id}`}
-                        primary={e.nombre}
+                        primary={e.name}
                         secondary={`Stock: ${e.stock}`}
                     />
                     <ListItemText key={`price-${e.id}`}
-                        primary={`$ ${e.precio}`}
+                        primary={`$ ${e.unitPrice}`}
                     />
                 </ListItem>
             )
@@ -40,11 +47,11 @@ const Ventas = () => {
                         setSelectedItem(e)
                     }}>
                     <ListItemText key={`name-${e.id}`}
-                        primary={e.nombre}
+                        primary={e.name}
                         secondary={`Stock: ${e.stock}`}
                     />
                     <ListItemText key={`price-${e.id}`}
-                        primary={`$ ${e.precio}`}
+                        primary={`$ ${e.unitPrice}`}
                     />
                 </ListItem>
             )
@@ -56,8 +63,8 @@ const Ventas = () => {
         return (
             <ListItem className="row-list" key={e.id}>
                 <ListItemText key={`name-${e.id}`}
-                    primary={e.nombre}
-                    secondary={`${e.precio} X ${e.cantidad}`}
+                    primary={e.name}
+                    secondary={`${e.unitPrice} X ${e.cantidad}`}
                 />
                 <ListItemText key={`total-${e.id}`}
                     primary={`$ ${e.total}`}
@@ -77,7 +84,7 @@ const Ventas = () => {
 
         if (items) {
             items.forEach(element => {
-                total += parseFloat(element.precio)
+                total += parseFloat(element.total)
             });
             return total;
         } else {
@@ -86,13 +93,13 @@ const Ventas = () => {
     }
 
     function addItemToTicket() {
-        /*id, nombre, precio, cantidad, total */
+        /*id, name, unitPrice, cantidad, total */
 
         if (selectedItem) {
             let newItemTicket = {
                 ...selectedItem,
                 cantidad: cantidadItem,
-                total: (parseFloat(selectedItem.precio) * parseInt(cantidadItem))
+                total: (parseFloat(selectedItem.unitPrice) * parseInt(cantidadItem))
             }
 
             delete newItemTicket.stock
@@ -120,44 +127,86 @@ const Ventas = () => {
         setItemsTicket(updItems);
     }
 
-    return (
-        <div>
+    function vaciarTicket() {
+        let updItems = []
+        setItemsTicket(updItems)
+    }
+
+    function facturar() {
+        let ticketvendedor = vendedor;
+        let items = itemsTicket;
+        let total = getTotalTicket();
+        let timestamp = Date.now();
+
+        let ticket = {
+            items: items,
+            total: total,
+            fecha: timestamp,
+            vendedor: ticketvendedor
+        }
+
+        console.log(ticket)
+        setTicket(ticket);
+        setStep('1');
+    }
+
+    if (step === '0') {
+
+        if (productos.length > 0) {
+            return (
+                <div>
+                    <div className="ventas">
+                        <div>
+                            <h2>Stock</h2>
+                            <div className="list-productos">
+                                <div className="list-items">
+                                    <List>
+                                        {productos.map((e) => renderList(e))}
+                                    </List>
+                                </div>
+                                <div className='bottom-list'>
+                                    <label>Cantidad: </label>
+                                    <input className="inputCant" placeholder='1' onChange={(e) => setCantidadItem(e.target.value)} />
+                                    <Button className="addToTicket" variant="contained" color="secondary"
+                                        onClick={() => { addItemToTicket() }}
+                                    >Agregar a ticket</Button>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h2>Ticket de Venta</h2>
+                            <div className="ticket">
+                                <div className="list-items">
+                                    <List key="items-ticket">
+                                        {itemsTicket ? itemsTicket.map((e) => renderItemsTicket(e)) : null}
+                                    </List>
+                                </div>
+                                <div className='bottom-ticket'>
+                                    <label>Total: ${getTotalTicket()}</label>
+                                    <Button className="clean-ticket" variant="contained" color="secondary"
+                                        onClick={() => vaciarTicket()}
+                                    >Vaciar ticket</Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <Button className="boton" variant="contained" color="secondary"
+                        onClick={facturar}
+                    >Siguiente</Button>
+                </div>
+            )
+        } else {
+            return (<div>Cargando</div>)
+        }
+    }
+
+    if (step === '1') {
+        return (
             <div className="ventas">
-                <div>
-                    <h2>Stock</h2>
-                    <div className="list-productos">
-                        <div className="item-producto">
-                            <List>
-                                {productos.map((e) => renderList(e))}
-                            </List>
-                        </div>
-                        <div className='bottom-list'>
-                            <label>Cantidad: </label>
-                            <input className="inputCant" placeholder='1' onChange={(e) => setCantidadItem(e.target.value)} />
-                            <Button className="addToTicket" variant="contained" color="secondary"
-                                onClick={() => { addItemToTicket() }}
-                            >Agregar a ticket</Button>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2>Ticket de Venta</h2>
-                    <div className="ticket">
-                        <div className="list-ticket">
-                            <List key="items-ticket">
-                                {itemsTicket ? itemsTicket.map((e) => renderItemsTicket(e)) : null}
-                            </List>
-                        </div>
-                        <div className='bottom-ticket'>
-                            <label>Total: ${getTotalTicket()}</label>
-                            <Button className="clean-ticket" variant="contained" color="secondary">Vaciar ticket</Button>
-                        </div>
-                    </div>
-                </div>
+                <Payment ticket={ticket} />
             </div>
-            <Button className="boton" variant="contained" color="secondary">Siguiente</Button>
-        </div>
-    )
+        )
+    }
 
 }
 
