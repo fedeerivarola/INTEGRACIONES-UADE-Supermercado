@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Payment.css'
-import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop } from '@material-ui/core';
+import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, MenuItem, Select } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Payment = (props) => {
@@ -11,6 +11,7 @@ const Payment = (props) => {
     const [items, setItems] = useState(ticket.items);
     const [paymentMethods, setPaymentMethods] = useState();
     const [openModal, setOpenModal] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState(1);
 
 
     function renderItemsTicket(e) {
@@ -61,6 +62,41 @@ const Payment = (props) => {
         setPaymentMethods(updItems);
     }
 
+    function handleChange(event) {
+        let value = event.target.value;
+        console.log(value)
+        setSelectedMethod(value)
+    };
+
+    function renderFormPayment() {
+
+        if (selectedMethod === 1) {
+
+            return (
+                <div>
+                    <p>Completar tarjeta</p>
+                    <label>DNI Cliente</label>
+                    <input id="dni" /> <br />
+                    <label>Numero Tarjeta</label>
+                    <input id="tarjeta" /><br />
+                    <label>Monto</label>
+                    <input id="monto" /><br />
+                    <Button>Aceptar</Button>
+                </div>
+            )
+
+        }
+
+        if (selectedMethod === 0) {
+            return (
+                <div>
+                    <p>Completar efectivo</p>
+                    <Button>Aceptar</Button>
+                </div>
+            )
+        }
+    }
+
     return (
         <div className="Payment">
 
@@ -100,7 +136,7 @@ const Payment = (props) => {
                 <Fade in={openModal}>
                     <div className="select-payment">
                         <p>Metodo de Pago</p>
-                        
+                        {selectedMethod ? renderFormPayment() : null}
                     </div>
                 </Fade>
             </Modal>

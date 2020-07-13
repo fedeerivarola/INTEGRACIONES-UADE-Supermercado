@@ -35,22 +35,38 @@ function App() {
   }, []);
 
   const [logok, setLogok] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(true);
   const [productos, setProductos] = useState(null);
 
   if (logok) {
-    return (
-      <div className="App">
-        <Router>
-          <NavBar />
-          <Switch>
-            <Route exact path="/cashier" render={() => <Ventas productos={productos} />} />
-            <Route exact path="/admin" render={() => <AdminMain />} />
-            <Route exact path="/finanzas" render={() => <Facturacion />} />
-            <Route exact path="/products" render={() => <ProductoABM />} />
-          </Switch>
-        </Router>
-      </div>
-    );
+    if (isAdmin) {
+      return (
+        <div className="App">
+          <Router>
+            <NavBar />
+            <Switch>
+              <Route exact path="/cashier" render={() => <Ventas productos={productos} />} />
+              <Route exact path="/admin" render={() => <AdminMain />} />
+              <Route exact path="/finanzas" render={() => <Facturacion />} />
+              <Route exact path="/products" render={() => <ProductoABM />} />
+            </Switch>
+          </Router>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Router>
+            <NavBar />
+            <Switch>
+              <Route exact path="/cashier" render={() => <Ventas productos={productos} />} />
+              <Route exact path="/finanzas" render={() => <Facturacion />} />
+            </Switch>
+          </Router>
+        </div>
+      );
+    }
+
   } else {
     return (
       <div className="login">
