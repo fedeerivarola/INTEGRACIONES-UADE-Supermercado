@@ -8,12 +8,12 @@
     position: relative;
 }
 
-.row-bottom-margin-20 { margin-bottom:20px; }
+.row-bottom-margin { margin-bottom:0px; 
+    margin-top:0px; }
 
-.row-bottom-margin-10 { margin-bottom:10px; }
 
-.facturacion-contado {
-    height: 300px;
+.facturacion {
+    height: 350px;
     width: 800px;
     background: rgb(106, 184, 113);
     box-shadow: 0px 3px 6px #00000029;
@@ -24,16 +24,11 @@
    
 }
 
-.facturacion-tarjeta {
-    height: 300px;
-    width: 800px;
-    background: rgb(196, 156, 146);
-    box-shadow: 0px 3px 6px #00000029;
-    border-radius: 12px;
-    padding: 25px;
+
+.facturacion-col {
     display: flex;
     opacity: 1;
-
+   
 }
 
 .fila-producto {
