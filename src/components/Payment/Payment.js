@@ -71,7 +71,7 @@ const Payment = (props) => {
 
     function handleInput(e) {
 
-        let newPM = newPaymentMethod
+        let newPM = { ...newPaymentMethod }
 
         if (e.target.id === 'dni') {
             newPM.dni = e.target.value;
@@ -87,10 +87,11 @@ const Payment = (props) => {
     }
 
     function savePaymentMethods() {
-
-        let upd = paymentMethods;
+        console.log(paymentMethods);
+        let upd = [...paymentMethods];
 
         upd.push(newPaymentMethod);
+        console.log(upd);
 
         setPaymentMethods(upd);
         setOpenModal(false);

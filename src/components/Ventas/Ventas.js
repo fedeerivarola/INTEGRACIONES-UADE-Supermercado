@@ -221,7 +221,7 @@ const Ventas = () => {
 
     if (step === '1') {
         return (
-            <div className="ventas">
+            <div>
                 <Payment ticket={ticket} />
             </div>
         )
