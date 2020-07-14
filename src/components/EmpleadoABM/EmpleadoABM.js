@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './EmpleadoABM.css'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -13,6 +13,29 @@ const EmpleadoABM = (props) => {
     const [selectedEmp, setSelectedEmp] = useState(null);
     const [newEmpleado, setNewEmpleado] = useState({ legajo: '', nombre: '', sector: '' });
 
+    useEffect(() => {
+        async function getProductos() {
+
+            let h = new Headers();
+            h.append('Accept', 'application/json');
+
+            let response = await fetch('https://master-market.azurewebsites.net/api/Employee/GetAll', {
+                method: 'GET',
+                mode: 'cors',
+                headers: h,
+                cache: 'default'
+            });
+            let data = await response.json();
+
+            return data;
+        }
+
+        getProductos().then(
+            (data) => {
+                console.log(data.employees);
+            }
+        )
+    }, []);
 
     function createEmpleado() {
         let updEmpleados = empleados

@@ -8,8 +8,32 @@ const AdminLogin = (props) => {
     const [password, setPassword] = useState('')
 
     function handleLogin() {
-        console.log(`user: ${user}`)
-        console.log(`pass: ${password}`)
+
+        async function doLogin() {
+
+            let data = {
+                userName: user,
+                password: password
+            }
+
+            let response = await fetch('https://master-market.azurewebsites.net/api/Employee/Login', {
+                method: 'POST',
+                mode: 'cors',
+                body: JSON.stringify(data)
+            });
+            let json = await response.json();
+
+            console.log(json)
+
+            return json;
+        }
+
+        doLogin().then(
+            (response) => {
+                console.log(response);
+            }
+        )
+
         props.login('ok')
     }
 
@@ -30,7 +54,7 @@ const AdminLogin = (props) => {
                 <h3>Password</h3>
                 <input type="password" onChange={(e) => handlePass(e)} />
             </form>
-            <button style={{marginTop: "20px"}} onClick={() => handleLogin()}>INGRESAR</button>
+            <button style={{ marginTop: "20px" }} onClick={() => handleLogin()}>INGRESAR</button>
         </div>
     )
 }

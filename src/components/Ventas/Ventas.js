@@ -4,26 +4,41 @@ import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryActi
 import DeleteIcon from '@material-ui/icons/Delete';
 import Payment from '../Payment/Payment';
 
-const Ventas = (props) => {
+const Ventas = () => {
 
-    console.log(props);
-    /*{"id":1,"name":"Papas fritas","sku":"ABC123DEF456","unitPrice":78.26,"stock":100,"category":"Congelados"}*/
-    // const [productos, setProductos] = useState([
-    //     { id: '001', name: 'Birra', unitPrice: '10', stock: '10' },
-    //     { id: '002', name: 'Papita', unitPrice: '20', stock: '10' },
-    //     { id: '003', name: 'Chisito', unitPrice: '20', stock: '10' },
-    //     { id: '004', name: 'Iphone 11', unitPrice: '20', stock: '1' },
-    //     { id: '006', name: 'Manzana', unitPrice: '20', stock: '100' },
-    //     { id: '007', name: 'Malboro Box', unitPrice: '20', stock: '4' },
-    //     { id: '008', name: 'Falopa', unitPrice: '50', stock: '0' }
-    // ]);
-    const [productos, setProductos] = useState(props.productos);
+    const [productos, setProductos] = useState([]);
     const [itemsTicket, setItemsTicket] = useState();
     const [selectedItem, setSelectedItem] = useState(null);
     const [cantidadItem, setCantidadItem] = useState(1);
     const vendedor = 'admin'
     const [step, setStep] = useState('0');
     const [ticket, setTicket] = useState(null);
+
+    useEffect(() => {
+        async function getProductos() {
+
+            let h = new Headers();
+            h.append('Accept', 'application/json');
+
+            let response = await fetch('https://master-market.azurewebsites.net/api/Product/GetAll', {
+                method: 'GET',
+                mode: 'cors',
+                headers: h,
+                cache: 'default'
+            });
+            let data = await response.json();
+
+            console.log(data)
+
+            return data;
+        }
+
+        getProductos().then(
+            (items) => {
+                setProductos(items.productos);
+            }
+        )
+    }, []);
 
     function renderList(e) {
         let id = null
@@ -138,21 +153,25 @@ const Ventas = (props) => {
         let total = getTotalTicket();
         let timestamp = Date.now();
 
-        let ticket = {
-            items: items,
-            total: total,
-            fecha: timestamp,
-            vendedor: ticketvendedor
-        }
+        if (items) {
+            let ticket = {
+                items: items,
+                total: total,
+                fecha: timestamp,
+                vendedor: ticketvendedor
+            }
 
-        console.log(ticket)
-        setTicket(ticket);
-        setStep('1');
+            console.log(ticket)
+            setTicket(ticket);
+            setStep('1');
+        } else {
+            alert('Antes debes completar la factura');
+        }
     }
 
     if (step === '0') {
 
-        if (productos.length > 0) {
+        if (productos) {
             return (
                 <div>
                     <div className="ventas">
