@@ -90,11 +90,18 @@ const Payment = (props) => {
         console.log(paymentMethods);
         let upd = [...paymentMethods];
 
-        upd.push(newPaymentMethod);
-        console.log(upd);
-
-        setPaymentMethods(upd);
-        setOpenModal(false);
+        if (newPaymentMethod) {
+            if (newPaymentMethod.monto === '') {
+                alert('Debe ingresar un monto')
+            } else if (parseFloat(newPaymentMethod.monto) <= 0) {
+                alert('Ingrese un monto valido')
+            } else {
+                upd.push(newPaymentMethod);
+                setPaymentMethods(upd);
+                setNewPaymentMethod({ paymentMethod: '', dni: '', tarjeta: '', monto: '' })
+                setOpenModal(false);
+            }
+        }
 
     }
 
