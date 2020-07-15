@@ -8,9 +8,10 @@
     position: relative;
 }
 
-.row-bottom-margin { margin-bottom:0px; 
-    margin-top:0px; }
-
+.row-bottom-margin {
+    margin-bottom: 0px;
+    margin-top: 0px;
+}
 
 .facturacion {
     height: 350px;
@@ -21,14 +22,15 @@
     padding: 25px;
     display: flex;
     opacity: 1;
-   
 }
 
+.inputDate {
+    width: 50px;
+}
 
 .facturacion-col {
     display: flex;
     opacity: 1;
-   
 }
 
 .fila-producto {
