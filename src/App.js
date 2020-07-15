@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavBar, AdminMain, AdminLogin, Ventas, ProductoABM, Facturacion } from './components';
+import { NavBar, AdminMain, AdminLogin, Ventas, ProductoABM, Facturacion, EmpleadoABM } from './components';
 import banner from './assets/kiwki2.jpg'
 
 
@@ -17,11 +17,11 @@ function App() {
       return (
         <div className="App">
           <Router>
-            <NavBar />
+            <NavBar logout={() => setLogok(null)} admin={true} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas />} />
-              <Route exact path="/admin" render={() => <AdminMain />} />
-              <Route exact path="/finanzas" render={() => <Facturacion />} />
+              <Route exact path="/employees" render={() => <EmpleadoABM />} />
+              <Route exact path="/finances" render={() => <Facturacion />} />
               <Route exact path="/products" render={() => <ProductoABM />} />
             </Switch>
           </Router>
@@ -31,10 +31,10 @@ function App() {
       return (
         <div className="App">
           <Router>
-            <NavBar />
+            <NavBar logout={() => setLogok(null)} admin={true} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas productos={productos} />} />
-              <Route exact path="/finanzas" render={() => <Facturacion />} />
+              <Route exact path="/finances" render={() => <Facturacion />} />
             </Switch>
           </Router>
         </div>
