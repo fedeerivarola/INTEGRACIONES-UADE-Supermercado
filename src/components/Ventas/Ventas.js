@@ -169,6 +169,15 @@ const Ventas = () => {
         }
     }
 
+    function finVenta() {
+        setStep('2')
+    }
+
+    function iniciarProceso() {
+        setStep('0')
+        setTicket(null)
+    }
+
     if (step === '0') {
 
         if (productos) {
@@ -222,9 +231,20 @@ const Ventas = () => {
     if (step === '1') {
         return (
             <div>
-                <Payment ticket={ticket} />
+                <Payment ticket={ticket} fin={() => finVenta()} />
             </div>
         )
+    }
+
+    if (step === '2') {
+
+        return (
+            <div>
+                <h1>Venta exitosa</h1>
+                <Button variant="contained" color="secondary"
+                    onClick={() => iniciarProceso()}>Nueva Venta</Button>
+            </div>
+        );
     }
 
 }

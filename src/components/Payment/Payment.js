@@ -16,40 +16,6 @@ const Payment = (props) => {
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
 
-    function renderItemsTicket(e) {
-        return (
-            <ListItem className="row-list" key={e.id}>
-                <ListItemText className="columnName" key={`name-${e.id}`}
-                    primary={e.name}
-                    secondary={`${e.unitPrice} X ${e.cantidad}`}
-                />
-                <ListItemText className="columnPrecio" key={`total-${e.id}`}
-                    primary={`$ ${e.total}`}
-                />
-            </ListItem>
-        )
-    }
-
-
-    function renderPaymentMethods(e) {
-        return (
-            <ListItem className="row-list" key={e.id}>
-                <ListItemText key={`name-${e.id}`}
-                    primary={e.dni}
-                    secondary={`${e.tarjeta}`}
-                />
-                <ListItemText key={`total-${e.id}`}
-                    primary={`$ ${e.monto}`}
-                />
-                <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete" onClick={() => quitarItem(e)}>
-                        <DeleteIcon />
-                    </IconButton>
-                </ListItemSecondaryAction>
-            </ListItem>
-        )
-    }
-
     function getFecha() {
         let fechaTicket = new Date(ticket.fecha);
         return (`${fechaTicket.getDate()}/${fechaTicket.getMonth()}/${fechaTicket.getFullYear()}`);
@@ -137,10 +103,47 @@ const Payment = (props) => {
         return vuelto;
     }
 
+    function finalizarVenta() {
+        console.log('enviar a backend')
+        //TODO consumir servicio
+        props.fin();
+
+    }
+
+    function renderPaymentMethods(e) {
+        return (
+            <ListItem className="row-list" key={e.id}>
+                <ListItemText key={`name-${e.id}`}
+                    primary={e.dni}
+                    secondary={`${e.tarjeta}`}
+                />
+                <ListItemText key={`total-${e.id}`}
+                    primary={`$ ${e.monto}`}
+                />
+                <ListItemSecondaryAction>
+                    <IconButton edge="end" aria-label="delete" onClick={() => quitarItem(e)}>
+                        <DeleteIcon />
+                    </IconButton>
+                </ListItemSecondaryAction>
+            </ListItem>
+        )
+    }
+
+    function renderItemsTicket(e) {
+        return (
+            <ListItem className="row-list" key={e.id}>
+                <ListItemText className="columnName" key={`name-${e.id}`}
+                    primary={e.name}
+                    secondary={`${e.unitPrice} X ${e.cantidad}`}
+                />
+                <ListItemText className="columnPrecio" key={`total-${e.id}`}
+                    primary={`$ ${e.total}`}
+                />
+            </ListItem>
+        )
+    }
+
     function renderFormPayment() {
-
-
-
         return (
             <div>
                 <p>Completar tarjeta</p>
@@ -213,7 +216,9 @@ const Payment = (props) => {
             </div>
             <div>
                 <Button className="btnFinalizar" variant="contained"
-                    color="secondary" disabled={habilitarFin}>Finalizar</Button>
+                    color="secondary" disabled={habilitarFin}
+                    onClick={() => finalizarVenta()}
+                >Finalizar</Button>
             </div>
         </div>
     );
