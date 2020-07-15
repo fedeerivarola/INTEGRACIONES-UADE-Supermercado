@@ -46,11 +46,11 @@ const Ventas = () => {
         if (e.id === id) {
             return (
                 <ListItem className="row-list" key={e.id} button selected={true}>
-                    <ListItemText key={`name-${e.id}`}
+                    <ListItemText className="columnName" key={`name-${e.id}`}
                         primary={e.name}
                         secondary={`Stock: ${e.stock}`}
                     />
-                    <ListItemText key={`price-${e.id}`}
+                    <ListItemText className="columnPrecio" key={`price-${e.id}`}
                         primary={`$ ${e.unitPrice}`}
                     />
                 </ListItem>
@@ -61,11 +61,11 @@ const Ventas = () => {
                     onClick={() => {
                         setSelectedItem(e)
                     }}>
-                    <ListItemText key={`name-${e.id}`}
+                    <ListItemText className="columnName" key={`name-${e.id}`}
                         primary={e.name}
                         secondary={`Stock: ${e.stock}`}
                     />
-                    <ListItemText key={`price-${e.id}`}
+                    <ListItemText className="columnPrecio" key={`price-${e.id}`}
                         primary={`$ ${e.unitPrice}`}
                     />
                 </ListItem>
@@ -77,11 +77,11 @@ const Ventas = () => {
         console.log(e)
         return (
             <ListItem className="row-list" key={e.id}>
-                <ListItemText key={`name-${e.id}`}
+                <ListItemText className="columnName" key={`name-${e.id}`}
                     primary={e.name}
                     secondary={`${e.unitPrice} X ${e.cantidad}`}
                 />
-                <ListItemText key={`total-${e.id}`}
+                <ListItemText className="columnPrecio" key={`total-${e.id}`}
                     primary={`$ ${e.total}`}
                 />
                 <ListItemSecondaryAction>

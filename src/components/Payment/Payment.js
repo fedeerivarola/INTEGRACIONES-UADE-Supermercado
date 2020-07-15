@@ -13,16 +13,17 @@ const Payment = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(1);
     const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: '', monto: '' });
-
+    //const [habilitarFin, setHabilitarFin] = useState(true);
+    let habilitarFin = true;
 
     function renderItemsTicket(e) {
         return (
             <ListItem className="row-list" key={e.id}>
-                <ListItemText key={`name-${e.id}`}
+                <ListItemText className="columnName" key={`name-${e.id}`}
                     primary={e.name}
                     secondary={`${e.unitPrice} X ${e.cantidad}`}
                 />
-                <ListItemText key={`total-${e.id}`}
+                <ListItemText className="columnPrecio" key={`total-${e.id}`}
                     primary={`$ ${e.total}`}
                 />
             </ListItem>
@@ -123,6 +124,16 @@ const Payment = (props) => {
         let total = getTotal();
         let vuelto = parseFloat(total) - parseFloat(ticket.total);
 
+        if (vuelto > 0 || vuelto === 0) {
+            //setHabilitarFin(false)
+            habilitarFin = false;
+        } else {
+            if (!habilitarFin) {
+                //setHabilitarFin(true)
+                habilitarFin = true;
+            }
+        }
+
         return vuelto;
     }
 
@@ -150,54 +161,60 @@ const Payment = (props) => {
     }
 
     return (
-        <div className="Payment">
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div className="Payment">
 
-            <div className="ticket-payment">
-                <h4>{`Vendedor: ${ticket.vendedor}`}</h4>
-                <h4>{`Fecha: ${getFecha()}`}</h4>
-                <div className="list-items">
-                    <List key="items-ticket">
-                        {items ? items.map((e) => renderItemsTicket(e)) : null}
-                    </List>
-                </div>
-                <h4>{`Total: ${ticket.total}`}</h4>
-            </div>
-
-            <div className="pagos">
-                <div className="list-items">
-                    <List key="payment-methods">
-                        {paymentMethods ? paymentMethods.map((e) => renderPaymentMethods(e)) : null}
-                    </List>
-                </div>
-                <div className="detail-payment">
-
-                    <label>Total: ${getTotal()}</label>
-                    {getVuelto() > 0 ? <label>Vuelto: ${getVuelto()}</label> : <label>Debe: ${getVuelto() * (-1)}</label>}
-                </div>
-                <Button variant="contained" color="secondary"
-                    onClick={() => setOpenModal(true)}
-                >Agregar pago</Button>
-            </div>
-
-            <Modal className="modal"
-                open={openModal}
-                onClose={() => setOpenModal(false)}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={openModal}>
-                    <div className="select-payment">
-                        <p>Metodo de Pago</p>
-                        {renderFormPayment()}
+                <div className="ticket-payment">
+                    <h4>{`Vendedor: ${ticket.vendedor}`}</h4>
+                    <h4>{`Fecha: ${getFecha()}`}</h4>
+                    <div className="list-items">
+                        <List key="items-ticket">
+                            {items ? items.map((e) => renderItemsTicket(e)) : null}
+                        </List>
                     </div>
-                </Fade>
-            </Modal>
+                    <h4>{`Total: ${ticket.total}`}</h4>
+                </div>
 
+                <div className="pagos">
+                    <div className="list-items">
+                        <List key="payment-methods">
+                            {paymentMethods ? paymentMethods.map((e) => renderPaymentMethods(e)) : null}
+                        </List>
+                    </div>
+                    <div className="detail-payment">
+
+                        <label>Total: ${getTotal()}</label>
+                        {getVuelto() > 0 ? <label>Vuelto: ${getVuelto()}</label> : <label>Debe: ${getVuelto() * (-1)}</label>}
+                    </div>
+                    <Button variant="contained" color="secondary"
+                        onClick={() => setOpenModal(true)}
+                    >Agregar pago</Button>
+                </div>
+
+                <Modal className="modal"
+                    open={openModal}
+                    onClose={() => setOpenModal(false)}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={openModal}>
+                        <div className="select-payment">
+                            <p>Metodo de Pago</p>
+                            {renderFormPayment()}
+                        </div>
+                    </Fade>
+                </Modal>
+
+            </div>
+            <div>
+                <Button className="btnFinalizar" variant="contained"
+                    color="secondary" disabled={habilitarFin}>Finalizar</Button>
+            </div>
         </div>
     );
 

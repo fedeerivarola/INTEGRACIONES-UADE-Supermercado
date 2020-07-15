@@ -26,6 +26,7 @@
 .Payment {
     display: flex;
     flex-direction: row;
+    margin-bottom: 30px;
 }
 
 .modal {
@@ -57,6 +58,19 @@
     margin-bottom: 20px;
     height: 250px;
     overflow-y: scroll;
+}
+
+.columnName{
+    width: 250px;
+}
+
+.columnPrecio{
+    margin-left: 10px;
+    right: 0;
+}
+
+.btnFinalizar{
+    width: 300px;
 }
 
 /* Tamaño del scroll */

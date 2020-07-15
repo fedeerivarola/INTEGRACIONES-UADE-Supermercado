@@ -22,7 +22,9 @@
     flex-direction: column;
 }
 
-.row-list {}
+.row-list {
+    width: 100%;
+}
 
 .list-items {
     margin-top: 20px;
@@ -31,6 +33,15 @@
     margin-bottom: 10px;
     height: 300px;
     overflow-y: scroll;
+}
+
+.columnName{
+    width: 250px;
+}
+
+.columnPrecio{
+    margin-left: 10px;
+    right: 0;
 }
 
 .bottom-list {
