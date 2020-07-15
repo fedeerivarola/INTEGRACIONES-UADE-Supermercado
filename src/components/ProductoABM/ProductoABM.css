@@ -7,6 +7,7 @@
     margin: 0 auto;
     padding: 10px;
     position: relative;
+    margin-top: 50px;
 }
 
 p {
@@ -20,7 +21,7 @@ p {
 .list-productos-registro {
     height: 400px;
     width: 800px;
-    background: rgb(146, 151, 196);
+    background: rgb(146, 151, 196) 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;
@@ -45,15 +46,16 @@ p {
 }
 
 .formNewProd {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     justify-content: space-between;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .modal {
     margin: 0 auto;
-    display: 'flex';
     align-items: 'center';
     justify-content: 'center';
     top: 50%;
@@ -62,35 +64,35 @@ p {
 
 /* Tamaño del scroll */
 
-.list-productos::-webkit-scrollbar {
+.list-productos-registro::-webkit-scrollbar {
     width: 8px;
     height: 8px;
 }
 
 /* Estilos barra (thumb) de scroll */
 
-.list-productos::-webkit-scrollbar-thumb {
+.list-productos-registro::-webkit-scrollbar-thumb {
     background: #ccc;
     border-radius: 4px;
 }
 
-.list-productos::-webkit-scrollbar-thumb:active {
+.list-productos-registro::-webkit-scrollbar-thumb:active {
     background-color: #999999;
     border-radius: 4px;
 }
 
-.list-productos::-webkit-scrollbar-thumb:hover {
+.list-productos-registro::-webkit-scrollbar-thumb:hover {
     background: #b3b3b3;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 /* Estilos track de scroll */
 
-.list-productos::-webkit-scrollbar-track {
+.list-productos-registro::-webkit-scrollbar-track {
     background: transparent;
     border-radius: 4px;
 }
 
-.list-productos::-webkit-scrollbar-track:hover, .list-productos::-webkit-scrollbar-track:active {
+.list-productos-registro::-webkit-scrollbar-track:hover, .list-productos-registro::-webkit-scrollbar-track:active {
     background: transparent;
 }

@@ -1,39 +1,47 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ProductoABM.css'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction } from '@material-ui/core';
+import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 
 
 const ProductoABM = (props) => {
 
     //const admin = props.admin;
 
-    const [productos, setProductos] = useState([{
-        codigo: '001',
-        nombre: 'Detergente',
-        cantidad: '50',
-        precio: '$100,00'
-    }, {
-        codigo: '002',
-        nombre: 'Lavandina',
-        cantidad: '30',
-        precio: '$180,00'
-    },
-    , {
-        codigo: '003',
-        nombre: 'Fideos',
-        cantidad: '150',
-        precio: '$90,00'
-    }]);
+    const [productos, setProductos] = useState([]);
     const [openModal, setOpenModal] = useState(false);
-    const [dense, setDense] = React.useState(false);
     const [selectedProd, setSelectedProd] = useState(null);
-    const [newProducto, setNewProducto] = useState({ codigo: '', nombre: '', cantidad: '', precio: '' });
+    const [newProducto, setNewProducto] = useState({ sku: '', name: '', stock: '', unitPrice: '', category: '' });
 
+    useEffect(() => {
+        async function getProductos() {
+
+            let h = new Headers();
+            h.append('Accept', 'application/json');
+
+            let response = await fetch('https://master-market.azurewebsites.net/api/Product/GetAll', {
+                method: 'GET',
+                mode: 'cors',
+                headers: h,
+                cache: 'default'
+            });
+            let data = await response.json();
+
+            console.log(data)
+
+            return data;
+        }
+
+        getProductos().then(
+            (items) => {
+                setProductos(items.productos);
+            }
+        )
+    }, []);
 
     function createProducto() {
-        let updProductos = productos
+        let updProductos = [...productos]
         updProductos.push(newProducto)
         setProductos(updProductos)
         setOpenModal(false)
@@ -41,7 +49,7 @@ const ProductoABM = (props) => {
 
     function deleteProducto(e) {
 
-        let updProductos = productos
+        let updProductos = [...productos]
 
         let i = updProductos.indexOf(e);
         i !== -1 && updProductos.splice(i, 1);
@@ -52,16 +60,18 @@ const ProductoABM = (props) => {
 
     function handleInput(e) {
 
-        let newProd = newProducto
+        let newProd = { ...newProducto }
 
-        if (e.target.id === 'codigo') {
-            newProd.codigo = e.target.value;
-        } else if (e.target.id === 'nombre') {
-            newProd.nombre = e.target.value;
-        } else if (e.target.id === 'cantidad') {
-            newProd.cantidad = e.target.value;
-        } else if (e.target.id === 'precio') {
-            newProd.precio = e.target.value;
+        if (e.target.id === 'sku') {
+            newProd.sku = e.target.value;
+        } else if (e.target.id === 'name') {
+            newProd.name = e.target.value;
+        } else if (e.target.id === 'Stock') {
+            newProd.Stock = e.target.value;
+        } else if (e.target.id === 'unitPrice') {
+            newProd.unitPrice = e.target.value;
+        } else if (e.target.id === 'category') {
+            newProd.category = e.target.value;
         }
 
         setNewProducto(newProd);
@@ -72,13 +82,15 @@ const ProductoABM = (props) => {
             <div className="formNewProd">
                 <h2>Registrar nuevo producto</h2>
                 <p>Código</p>
-                <input id='codigo' onChange={(e) => handleInput(e)} />
+                <input id='sku' onChange={(e) => handleInput(e)} />
                 <p>Nombre</p>
-                <input id='nombre' onChange={(e) => handleInput(e)} />
-                <p>Cantidad</p>
-                <input id='cantidad' onChange={(e) => handleInput(e)} />
-                <p>Precio</p>
-                <input id='precio' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                <input id='name' onChange={(e) => handleInput(e)} />
+                <p>Stock</p>
+                <input id='Stock' onChange={(e) => handleInput(e)} />
+                <p>Category</p>
+                <input id='category' onChange={(e) => handleInput(e)} />
+                <p>Precio unitario</p>
+                <input id='unitPrice' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
 
                 <Button variant="contained" color="primary" onClick={() => createProducto()}>REGISTRAR</Button>
             </div>
@@ -91,13 +103,13 @@ const ProductoABM = (props) => {
             <div>
                 <h2>Detalle de producto</h2>
                 <h4>Código: </h4>
-                <p>{selectedProd.codigo}</p>
+                <p>{selectedProd.sku}</p>
                 <h4>Nombre: </h4>
-                <p>{selectedProd.nombre}</p>
-                <h4>Cantidad: </h4>
-                <p>{selectedProd.cantidad}</p>
-                <h4>Precio: </h4>
-                <p>{selectedProd.precio}</p>
+                <p>{selectedProd.name}</p>
+                <h4>Stock: </h4>
+                <p>{selectedProd.Stock}</p>
+                <h4>Precio unitario: </h4>
+                <p>{selectedProd.unitPrice}</p>
             </div>
         )
     }
@@ -105,20 +117,20 @@ const ProductoABM = (props) => {
     function renderList(e) {
 
         return (
-            <ListItem key={e.codigo} button
+            <ListItem key={e.sku} button
                 onClick={() => {
                     console.log(e)
                     setOpenModal(true);
                     setSelectedProd(e);
                 }}>
                 <ListItemText
-                    primary={e.nombre}
-                    secondary={e.codigo}
+                    primary={e.name}
+                    secondary={e.sku}
                 />
-                <p>Cantidad:</p>
-                 <p>{e.cantidad}</p>
-                <p>Precio:</p>
-                 <p>{e.precio}</p>
+                <p>Stock:</p>
+                <p>{e.Stock}</p>
+                <p>Precio unitario:</p>
+                <p>{e.unitPrice}</p>
                 <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete" onClick={() => deleteProducto(e)}>
                         <DeleteIcon />
@@ -131,9 +143,9 @@ const ProductoABM = (props) => {
     return (
         <div className="menu-productos">
 
-            <h2>Lista de productos</h2>
+            <h2>Lista de Productos</h2>
             <div className="list-productos-registro">
-                <List dense={dense}>
+                <List>
                     {productos.map((e) => renderList(e))}
                 </List>
             </div>
