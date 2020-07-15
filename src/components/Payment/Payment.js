@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './Payment.css'
-import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, MenuItem, Select } from '@material-ui/core';
+import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Payment = (props) => {
 
     console.log(props.ticket);
 
-    const [ticket, setTicket] = useState(props.ticket);
-    const [items, setItems] = useState(ticket.items);
+    const [ticket] = useState(props.ticket);
+    const [items] = useState(ticket.items);
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(1);
@@ -30,11 +30,11 @@ const Payment = (props) => {
         setPaymentMethods(updItems);
     }
 
-    function handleChange(event) {
-        let value = event.target.value;
-        console.log(value)
-        setSelectedMethod(value)
-    };
+    // function handleChange(event) {
+    //     let value = event.target.value;
+    //     console.log(value)
+    //     setSelectedMethod(value)
+    // };
 
     function handleInput(e) {
 

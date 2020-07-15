@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavBar, AdminMain, AdminLogin, Ventas, ProductoABM, Facturacion, EmpleadoABM } from './components';
+import { NavBar, AdminLogin, Ventas, ProductoABM, Facturacion, EmpleadoABM } from './components';
 import banner from './assets/kiwki2.jpg'
 
 
@@ -10,7 +10,6 @@ function App() {
 
   const [logok, setLogok] = useState(null);
   const [isAdmin, setIsAdmin] = useState(true);
-  const [productos, setProductos] = useState(null);
 
   if (logok) {
     if (isAdmin) {
@@ -31,9 +30,9 @@ function App() {
       return (
         <div className="App">
           <Router>
-            <NavBar logout={() => setLogok(null)} admin={true} />
+            <NavBar logout={() => setLogok(null)} admin={false} />
             <Switch>
-              <Route exact path="/cashier" render={() => <Ventas productos={productos} />} />
+              <Route exact path="/cashier" render={() => <Ventas />} />
               <Route exact path="/finances" render={() => <Facturacion />} />
             </Switch>
           </Router>

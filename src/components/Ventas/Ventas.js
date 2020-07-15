@@ -28,8 +28,6 @@ const Ventas = () => {
             });
             let data = await response.json();
 
-            console.log(data)
-
             return data;
         }
 
@@ -174,8 +172,10 @@ const Ventas = () => {
     }
 
     function iniciarProceso() {
-        setStep('0')
+        setSelectedItem(null)
         setTicket(null)
+        setItemsTicket(null)
+        setStep('0')
     }
 
     if (step === '0') {
