@@ -12,7 +12,7 @@ const Facturacion = () => {
         debitTotal: '',
         cashTotal: ''
     });
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState('1-1-2020');
     let { dd, MM, YYYY } = useState(null);
 
     useEffect(() => {
@@ -76,7 +76,7 @@ const Facturacion = () => {
             <h2>Facturación según medio de pago:</h2>
 
             <div className="facturacion row-bottom-margin">
-                <h4 >Detalle:</h4>
+                <h4 >Ventas del dia: {date}</h4>
                 <div className="facturacion-col row-bottom-margin">
                     <p>Total por tarjeta de credito:</p>
                     <p>{detail.creditTotal}</p>
