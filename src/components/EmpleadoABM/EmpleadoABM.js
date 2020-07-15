@@ -5,16 +5,26 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction } from '@material-ui/core';
 
 
-const EmpleadoABM = (props) => {
+const EmpleadoABM = () => {
 
     //const admin = props.admin;
-    const [empleados, setEmpleados] = useState(props.empleados);
+    const [empleados, setEmpleados] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedEmp, setSelectedEmp] = useState(null);
-    const [newEmpleado, setNewEmpleado] = useState({ legajo: '', nombre: '', sector: '' });
+    const [newEmpleado, setNewEmpleado] = useState({
+        id: '',
+        firstName: '',
+        lastName: '',
+        identifier: '',
+        userName: '',
+        password: '',
+        isAdmin: false
+    });
+
+    //{"id":1,"firstName":"Gaston","lastName":"Larriera","identifier":35253231,"userName":"admin","password":"1234","isAdmin":true}
 
     useEffect(() => {
-        async function getProductos() {
+        async function getEmployees() {
 
             let h = new Headers();
             h.append('Accept', 'application/json');
@@ -30,15 +40,15 @@ const EmpleadoABM = (props) => {
             return data;
         }
 
-        getProductos().then(
+        getEmployees().then(
             (data) => {
-                console.log(data.employees);
+                setEmpleados(data.employees);
             }
         )
     }, []);
 
     function createEmpleado() {
-        let updEmpleados = empleados
+        let updEmpleados = [...empleados]
         updEmpleados.push(newEmpleado)
         setEmpleados(updEmpleados)
         setOpenModal(false)
@@ -46,7 +56,7 @@ const EmpleadoABM = (props) => {
 
     function deleteEmpleado(e) {
 
-        let updEmpleados = empleados
+        let updEmpleados = [...empleados]
 
         let i = updEmpleados.indexOf(e);
         i !== -1 && updEmpleados.splice(i, 1);
@@ -57,14 +67,22 @@ const EmpleadoABM = (props) => {
 
     function handleInput(e) {
 
-        let newEmp = newEmpleado
+        let newEmp = { ...newEmpleado }
 
         if (e.target.id === 'legajo') {
-            newEmp.legajo = e.target.value;
+            newEmp.id = e.target.value;
         } else if (e.target.id === 'nombre') {
-            newEmp.nombre = e.target.value;
-        } else if (e.target.id === 'sector') {
-            newEmp.sector = e.target.value;
+            newEmp.firstName = e.target.value;
+        } else if (e.target.id === 'lastName') {
+            newEmp.lastName = e.target.value;
+        } else if (e.target.id === 'identifier') {
+            newEmp.identifier = e.target.value;
+        } else if (e.target.id === 'userName') {
+            newEmp.userName = e.target.value;
+        } else if (e.target.id === 'password') {
+            newEmp.password = e.target.value;
+        } else if (e.target.id === 'isAdmin') {
+            newEmp.isAdmin = e.target.value;
         }
 
         setNewEmpleado(newEmp);
@@ -78,8 +96,16 @@ const EmpleadoABM = (props) => {
                 <input id='legajo' onChange={(e) => handleInput(e)} />
                 <p>Nombre</p>
                 <input id='nombre' onChange={(e) => handleInput(e)} />
-                <p>Sector</p>
-                <input id='sector' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                <p>Apellido</p>
+                <input id='lastName' onChange={(e) => handleInput(e)} />
+                <p>identifier</p>
+                <input id='identifier' onChange={(e) => handleInput(e)} />
+                <p>userName</p>
+                <input id='userName' onChange={(e) => handleInput(e)} />
+                <p>password</p>
+                <input id='password' onChange={(e) => handleInput(e)} />
+                <p>Es admin? todo: poner checkbox</p>
+                <input id='isAdmin' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
 
                 <Button variant="contained" color="primary" onClick={() => createEmpleado()}>GUARDAR</Button>
             </div>
@@ -92,11 +118,15 @@ const EmpleadoABM = (props) => {
             <div>
                 <h2>View profile empleado</h2>
                 <h4>Legajo: </h4>
-                <p>{selectedEmp.legajo}</p>
+                <p>{selectedEmp.id}</p>
                 <h4>Nombre: </h4>
-                <p>{selectedEmp.nombre}</p>
-                <h4>Sector: </h4>
-                <p>{selectedEmp.sector}</p>
+                <p>{selectedEmp.firstName + ' ' + selectedEmp.lastName}</p>
+                <h4>Documento: </h4>
+                <p>{selectedEmp.identifier}</p>
+                <h4>usuario: </h4>
+                <p>{selectedEmp.userName}</p>
+                <h4>Es admin: </h4>
+                <p>{selectedEmp.isAdmin}</p>
             </div>
         )
     }
@@ -104,7 +134,7 @@ const EmpleadoABM = (props) => {
     function renderList(e) {
 
         return (
-            <ListItem key={e.legajo} button
+            <ListItem key={e.id} button
                 onClick={() => {
                     console.log(e)
                     setOpenModal(true);
@@ -114,8 +144,8 @@ const EmpleadoABM = (props) => {
                     <Avatar />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={e.nombre}
-                    secondary={e.sector}
+                    primary={e.lastName}
+                    secondary={e.firstName}
                 />
                 <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete" onClick={() => deleteEmpleado(e)}>
