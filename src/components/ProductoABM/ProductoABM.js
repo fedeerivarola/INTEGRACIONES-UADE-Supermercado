@@ -66,8 +66,8 @@ const ProductoABM = (props) => {
             newProd.sku = e.target.value;
         } else if (e.target.id === 'name') {
             newProd.name = e.target.value;
-        } else if (e.target.id === 'Stock') {
-            newProd.Stock = e.target.value;
+        } else if (e.target.id === 'stock') {
+            newProd.stock = e.target.value;
         } else if (e.target.id === 'unitPrice') {
             newProd.unitPrice = e.target.value;
         } else if (e.target.id === 'category') {
@@ -86,7 +86,7 @@ const ProductoABM = (props) => {
                 <p>Nombre</p>
                 <input id='name' onChange={(e) => handleInput(e)} />
                 <p>Stock</p>
-                <input id='Stock' onChange={(e) => handleInput(e)} />
+                <input id='stock' onChange={(e) => handleInput(e)} />
                 <p>Category</p>
                 <input id='category' onChange={(e) => handleInput(e)} />
                 <p>Precio unitario</p>
@@ -107,7 +107,7 @@ const ProductoABM = (props) => {
                 <h4>Nombre: </h4>
                 <p>{selectedProd.name}</p>
                 <h4>Stock: </h4>
-                <p>{selectedProd.Stock}</p>
+                <p>{selectedProd.stock}</p>
                 <h4>Precio unitario: </h4>
                 <p>{selectedProd.unitPrice}</p>
             </div>
@@ -117,7 +117,7 @@ const ProductoABM = (props) => {
     function renderList(e) {
 
         return (
-            <ListItem key={e.sku} button
+            <ListItem key={`${e.sku}-${e.name}`} button
                 onClick={() => {
                     console.log(e)
                     setOpenModal(true);
@@ -128,7 +128,7 @@ const ProductoABM = (props) => {
                     secondary={e.sku}
                 />
                 <p>Stock:</p>
-                <p>{e.Stock}</p>
+                <p>{e.stock}</p>
                 <p>Precio unitario:</p>
                 <p>{e.unitPrice}</p>
                 <ListItemSecondaryAction>

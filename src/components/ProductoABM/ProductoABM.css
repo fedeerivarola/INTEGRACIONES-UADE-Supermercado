@@ -41,15 +41,15 @@ p {
     opacity: 1;
     margin: 0 auto;
     padding: 10px;
-    position: relative;
     margin-top: 100px;
+
 }
 
 .formNewProd {
     height: 100%;
+    width: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     overflow-y: scroll;
     overflow-x: hidden;
 }

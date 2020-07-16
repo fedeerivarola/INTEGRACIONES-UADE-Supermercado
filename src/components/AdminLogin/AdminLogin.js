@@ -15,17 +15,20 @@ const AdminLogin = (props) => {
                 userName: user,
                 password: password
             }
+            let h = new Headers()
+            h.append('Content-Type', 'application/json');
 
             let response = await fetch('https://master-market.azurewebsites.net/api/Employee/Login', {
                 method: 'POST',
                 mode: 'cors',
-                body: JSON.stringify(data)
+                headers: h,
+                body: '{"userName":"admin", "password": "1234"}'
             });
-            let json = await response.json();
+            // let json = await response.json();
+            return response
+            // console.log(json)
 
-            console.log(json)
-
-            return json;
+            // return json;
         }
 
         doLogin().then(
@@ -54,7 +57,7 @@ const AdminLogin = (props) => {
                 <h3 className="txt-login">Password</h3>
                 <input type="password" onChange={(e) => handlePass(e)} />
             </form>
-            <button style={{width: "100px", marginTop: "20px" }} onClick={() => handleLogin()}>INGRESAR</button>
+            <button style={{ width: "100px", marginTop: "20px" }} onClick={() => handleLogin()}>INGRESAR</button>
         </div>
     )
 }
