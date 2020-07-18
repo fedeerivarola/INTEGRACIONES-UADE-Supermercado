@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Payment.css'
-import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop } from '@material-ui/core';
+import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, Box} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Payment = (props) => {
@@ -11,6 +11,8 @@ const Payment = (props) => {
     const [items] = useState(ticket.items);
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [openModal, setOpenModal] = useState(false);
+    const [openModalCash, setOpenModalCash] = useState(false);
+    const [openModalCard, setOpenModalCard] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(1);
     const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: '', monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
@@ -66,7 +68,8 @@ const Payment = (props) => {
                 upd.push(newPaymentMethod);
                 setPaymentMethods(upd);
                 setNewPaymentMethod({ paymentMethod: '', dni: '', tarjeta: '', monto: '' })
-                setOpenModal(false);
+                setOpenModalCard(false);
+                setOpenModalCash(false);
             }
         }
 
@@ -159,8 +162,19 @@ const Payment = (props) => {
                 >Aceptar</Button>
             </div>
         )
+    }
 
-
+    function renderFormPaymentCash() {
+        return (
+            <div>
+                <label>Monto</label>
+                <input id='monto' onChange={(e) => handleInput(e)} /><br />
+                <Button
+                    variant="contained" color="secondary"
+                    onClick={() => savePaymentMethods()}
+                >Aceptar</Button>
+            </div>
+        )
     }
 
     return (
@@ -207,8 +221,54 @@ const Payment = (props) => {
                 >
                     <Fade in={openModal}>
                         <div className="select-payment">
-                            <p>Metodo de Pago</p>
+                            <p>Método de Pago</p>
+                            <Box m={2} pt={3}>
+                            <Button variant="contained" color="secondary"
+                                onClick={() => {setOpenModalCash(true);setOpenModal(false);}}
+                                >Pago contado</Button></Box>
+                            <Box m={2} pt={3}>
+                            <Button variant="contained" color="secondary" 
+                                onClick={() => {setOpenModalCard(true);setOpenModal(false);}}
+                                >Pago tarjeta</Button></Box>     
+                          
+                        </div>
+                    </Fade>
+                </Modal>
+
+                <Modal className="modal"
+                    open={openModalCard}
+                    onClose={() => setOpenModalCard(false)}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={openModalCard}>
+                        <div className="select-payment">
+                            <p>Pago tarjeta</p>
                             {renderFormPayment()}
+                        </div>
+                    </Fade>
+                </Modal>
+
+                <Modal className="modal"
+                    open={openModalCash}
+                    onClose={() => setOpenModalCash(false)}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={openModalCash}>
+                        <div className="select-payment">
+                            <p>Pago contado</p>
+                            {renderFormPaymentCash()}
                         </div>
                     </Fade>
                 </Modal>
