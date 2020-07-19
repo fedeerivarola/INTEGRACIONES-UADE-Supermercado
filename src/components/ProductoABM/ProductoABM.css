@@ -41,17 +41,22 @@ p {
     opacity: 1;
     margin: 0 auto;
     padding: 10px;
+    position: relative;
     margin-top: 100px;
+}
 
+.create-producto{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
 }
 
 .formNewProd {
-    height: 100%;
+    height: 400px;
     width: 400px;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    justify-content: space-between;
 }
 
 .modal {

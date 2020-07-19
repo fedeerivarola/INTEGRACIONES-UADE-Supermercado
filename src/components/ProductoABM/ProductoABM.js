@@ -42,7 +42,7 @@ const ProductoABM = (props) => {
     }, []);
 
     async function createProductoService() {
-        
+
         let h = new Headers()
         h.append('Content-Type', 'application/json');
 
@@ -109,20 +109,22 @@ const ProductoABM = (props) => {
 
     function formCreateProducto() {
         return (
-            <div className="formNewProd">
+            <div className="create-producto">
                 <h2>Registrar nuevo producto</h2>
-                <p>Código</p>
-                <input id='sku' onChange={(e) => handleInput(e)} />
-                <p>Nombre</p>
-                <input id='name' onChange={(e) => handleInput(e)} />
-                <p>Stock</p>
-                <input id='stock' type="number" onChange={(e) => handleInput(e)} />
-                <p>Category</p>
-                <input id='category' onChange={(e) => handleInput(e)} />
-                <p>Precio unitario</p>
-                <input id='unitPrice' type="number" style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
-                {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}<br />
-                <Button variant="contained" color="primary" onClick={() => createProducto()}>REGISTRAR</Button>
+                <div className="formNewProd">
+                    <label>Código</label>
+                    <input id='sku' onChange={(e) => handleInput(e)} />
+                    <label>Nombre</label>
+                    <input id='name' onChange={(e) => handleInput(e)} />
+                    <label>Stock</label>
+                    <input id='stock' type="number" onChange={(e) => handleInput(e)} />
+                    <label>Category</label>
+                    <input id='category' onChange={(e) => handleInput(e)} />
+                    <label>Precio unitario</label>
+                    <input id='unitPrice' type="number" style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                    {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}<br />
+                    <Button variant="contained" color="primary" onClick={() => createProducto()}>REGISTRAR</Button>
+                </div>
             </div>
         )
     }
