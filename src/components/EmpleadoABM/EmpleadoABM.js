@@ -11,11 +11,11 @@ const EmpleadoABM = () => {
     const [empleados, setEmpleados] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedEmp, setSelectedEmp] = useState(null);
+    const [errMsg, setErrMsg] = useState(null);
     const [newEmpleado, setNewEmpleado] = useState({
-        id: '',
+        identifier: null,
         firstName: '',
         lastName: '',
-        identifier: '',
         userName: '',
         password: '',
         isAdmin: false
@@ -47,11 +47,38 @@ const EmpleadoABM = () => {
         )
     }, []);
 
+    async function createEmployeeService() {
+
+        let h = new Headers()
+        h.append('Content-Type', 'application/json');
+
+        console.log(newEmpleado)
+
+        let response = await fetch('https://master-market.azurewebsites.net/api/Employee/SaveEmployee', {
+            method: 'POST',
+            mode: 'cors',
+            headers: h,
+            body: JSON.stringify(newEmpleado)
+        });
+        let json = await response.json();
+
+        return json;
+    }
+
     function createEmpleado() {
         let updEmpleados = [...empleados]
-        updEmpleados.push(newEmpleado)
-        setEmpleados(updEmpleados)
-        setOpenModal(false)
+
+        createEmployeeService().then(
+            (response) => {
+                if (response.success) {
+                    updEmpleados.push(newEmpleado)
+                    setEmpleados(updEmpleados)
+                    setOpenModal(false)
+                    alert(response.msg);
+                } else {
+                    setErrMsg(response.msg);
+                }
+            });
     }
 
     function deleteEmpleado(e) {
@@ -69,20 +96,18 @@ const EmpleadoABM = () => {
 
         let newEmp = { ...newEmpleado }
 
-        if (e.target.id === 'legajo') {
-            newEmp.id = e.target.value;
+        if (e.target.id === 'identifier') {
+            newEmp.identifier = parseInt(e.target.value);
         } else if (e.target.id === 'nombre') {
             newEmp.firstName = e.target.value;
         } else if (e.target.id === 'lastName') {
             newEmp.lastName = e.target.value;
-        } else if (e.target.id === 'identifier') {
-            newEmp.identifier = e.target.value;
         } else if (e.target.id === 'userName') {
             newEmp.userName = e.target.value;
         } else if (e.target.id === 'password') {
             newEmp.password = e.target.value;
         } else if (e.target.id === 'isAdmin') {
-            newEmp.isAdmin = e.target.value;
+            newEmp.isAdmin = (e.target.value === 'si' ? true : false);
         }
 
         setNewEmpleado(newEmp);
@@ -92,21 +117,19 @@ const EmpleadoABM = () => {
         return (
             <div className="formNewEmp">
                 <h2>Registrar nuevo empleado</h2>
-                <p>Legajo</p>
-                <input id='legajo' onChange={(e) => handleInput(e)} />
-                <p>Nombre</p>
+                <label>Legajo: </label>
+                <input id='identifier' type="number" onChange={(e) => handleInput(e)} />
+                <label>Nombre:</label>
                 <input id='nombre' onChange={(e) => handleInput(e)} />
-                <p>Apellido</p>
+                <label>Apellido:</label>
                 <input id='lastName' onChange={(e) => handleInput(e)} />
-                <p>identifier</p>
-                <input id='identifier' onChange={(e) => handleInput(e)} />
-                <p>userName</p>
+                <label>Usuario:</label>
                 <input id='userName' onChange={(e) => handleInput(e)} />
-                <p>password</p>
-                <input id='password' onChange={(e) => handleInput(e)} />
-                <p>Es admin? todo: poner checkbox</p>
-                <input id='isAdmin' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
-
+                <label>Password: </label>
+                <input id='password' type="password" onChange={(e) => handleInput(e)} />
+                <label>Usuario administrador</label>
+                <input id='isAdmin' type="checkbox" value={'si'} style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}
                 <Button variant="contained" color="primary" onClick={() => createEmpleado()}>GUARDAR</Button>
             </div>
         )
