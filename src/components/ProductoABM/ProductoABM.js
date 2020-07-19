@@ -12,6 +12,7 @@ const ProductoABM = (props) => {
     const [productos, setProductos] = useState([]);
     const [openModal, setOpenModal] = useState(false);
     const [selectedProd, setSelectedProd] = useState(null);
+    const [errMsg, setErrMsg] = useState(null);
     const [newProducto, setNewProducto] = useState({ sku: '', name: '', stock: '', unitPrice: '', category: '' });
 
     useEffect(() => {
@@ -40,11 +41,40 @@ const ProductoABM = (props) => {
         )
     }, []);
 
+    async function createProductoService() {
+        
+        let h = new Headers()
+        h.append('Content-Type', 'application/json');
+
+        console.log(newProducto)
+
+        let response = await fetch('https://master-market.azurewebsites.net/api/Product/SaveProduct', {
+            method: 'POST',
+            mode: 'cors',
+            headers: h,
+            body: JSON.stringify(newProducto)
+        });
+        let json = await response.json();
+
+        return json;
+
+    }
+
     function createProducto() {
         let updProductos = [...productos]
-        updProductos.push(newProducto)
-        setProductos(updProductos)
-        setOpenModal(false)
+
+        createProductoService().then(
+            (response) => {
+                if (response.success) {
+                    updProductos.push(newProducto)
+                    setProductos(updProductos)
+                    setOpenModal(false)
+                    alert(response.msg);
+                } else {
+                    setErrMsg(response.msg);
+                }
+            }
+        )
     }
 
     function deleteProducto(e) {
@@ -67,9 +97,9 @@ const ProductoABM = (props) => {
         } else if (e.target.id === 'name') {
             newProd.name = e.target.value;
         } else if (e.target.id === 'stock') {
-            newProd.stock = e.target.value;
+            newProd.stock = parseInt(e.target.value);
         } else if (e.target.id === 'unitPrice') {
-            newProd.unitPrice = e.target.value;
+            newProd.unitPrice = parseFloat(e.target.value);
         } else if (e.target.id === 'category') {
             newProd.category = e.target.value;
         }
@@ -86,12 +116,12 @@ const ProductoABM = (props) => {
                 <p>Nombre</p>
                 <input id='name' onChange={(e) => handleInput(e)} />
                 <p>Stock</p>
-                <input id='stock' onChange={(e) => handleInput(e)} />
+                <input id='stock' type="number" onChange={(e) => handleInput(e)} />
                 <p>Category</p>
                 <input id='category' onChange={(e) => handleInput(e)} />
                 <p>Precio unitario</p>
-                <input id='unitPrice' style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
-
+                <input id='unitPrice' type="number" style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}<br />
                 <Button variant="contained" color="primary" onClick={() => createProducto()}>REGISTRAR</Button>
             </div>
         )
