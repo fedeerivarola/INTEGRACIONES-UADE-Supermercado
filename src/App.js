@@ -9,7 +9,21 @@ import banner from './assets/kiwki2.jpg'
 function App() {
 
   const [logok, setLogok] = useState(null);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  function handleLogin(user){
+    console.log(user);
+    localStorage.setItem('userId',user.id);
+    localStorage.setItem('fullname',user.fullName);
+    setLogok(true);
+    setIsAdmin(user.isAdmin);
+  }
+
+  function handleLogout(){
+    localStorage.removeItem('userId');
+    localStorage.removeItem('fullname');
+    setLogok(null);
+  }
 
   if (logok) {
     if (isAdmin) {
@@ -46,7 +60,7 @@ function App() {
         <div className="banner">
           <img src={banner} alt='banner' />
         </div>
-        <AdminLogin login={() => setLogok('ok')} />
+        <AdminLogin login={(e) => handleLogin(e)} />
       </div>
     )
   }

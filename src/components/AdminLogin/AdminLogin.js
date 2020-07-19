@@ -6,6 +6,7 @@ const AdminLogin = (props) => {
 
     const [user, setUser] = useState('')
     const [password, setPassword] = useState('')
+    const [errMsg, setErrMsg] = useState(null)
 
     function handleLogin() {
 
@@ -20,24 +21,27 @@ const AdminLogin = (props) => {
 
             let response = await fetch('https://master-market.azurewebsites.net/api/Employee/Login', {
                 method: 'POST',
+
                 mode: 'cors',
                 headers: h,
-                body: '{"userName":"admin", "password": "1234"}'
+                body: JSON.stringify(data)
             });
-            // let json = await response.json();
-            return response
+            let json = await response.json();
+            //return response
             // console.log(json)
 
-            // return json;
+            return json;
         }
 
         doLogin().then(
             (response) => {
-                console.log(response);
+                if (response.success) {
+                    props.login(response.data);
+                } else {
+                    setErrMsg(response.data);
+                }
             }
         )
-
-        props.login('ok')
     }
 
     function handleUser(e) {
@@ -57,6 +61,7 @@ const AdminLogin = (props) => {
                 <h3 className="txt-login">Password</h3>
                 <input type="password" onChange={(e) => handlePass(e)} />
             </form>
+            {errMsg && <span style={{ color: "white" }}>{errMsg}</span>}
             <button style={{ width: "100px", marginTop: "20px" }} onClick={() => handleLogin()}>INGRESAR</button>
         </div>
     )
