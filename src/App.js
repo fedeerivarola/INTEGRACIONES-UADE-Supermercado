@@ -8,7 +8,9 @@ import banner from './assets/kiwki2.jpg'
 
 function App() {
 
-  const [logok, setLogok] = useState(null);
+  let active = localStorage.getItem('userId') ? true : null;
+
+  const [logok, setLogok] = useState(active);
   const [isAdmin, setIsAdmin] = useState(false);
 
   function handleLogin(user) {
@@ -31,7 +33,7 @@ function App() {
         <div className="App">
           <Router>
             <Redirect from="/" to="/cashier" />
-            <NavBar logout={() => handleLogout} admin={true} />
+            <NavBar logout={() => handleLogout()} admin={true} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas />} />
               <Route exact path="/employees" render={() => <EmpleadoABM />} />
@@ -46,7 +48,7 @@ function App() {
         <div className="App">
           <Router>
             <Redirect from="/" to="/cashier" />
-            <NavBar logout={() => handleLogout} admin={false} />
+            <NavBar logout={() => handleLogout()} admin={false} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas />} />
               <Route exact path="/finances" render={() => <Facturacion />} />
