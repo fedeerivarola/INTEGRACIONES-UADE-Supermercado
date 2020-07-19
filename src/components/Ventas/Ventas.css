@@ -1,5 +1,5 @@
 .ventas {
-    padding: 60px;
+    padding: 50px;
     margin: 0 auto;
     position: relative;
     display: flex;
@@ -27,11 +27,11 @@
 }
 
 .list-items {
+    height: 100%;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
     margin-bottom: 10px;
-    height: 300px;
     overflow-y: scroll;
 }
 
