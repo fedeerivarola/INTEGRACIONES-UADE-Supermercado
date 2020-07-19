@@ -240,7 +240,11 @@ const Ventas = () => {
 
         return (
             <div>
-                <h1>Venta exitosa</h1>
+                <div className="ventas">
+                    <h1>Venta exitosa</h1>
+                    <img alt="apu" src={"https://vignette.wikia.nocookie.net/lossimpson/images/7/7d/Apu_Nahasapeemapetilon.png/revision/latest/scale-to-width-down/318?cb=20111127113228&path-prefix=es"} />
+                    <h2>Gracias vuelvas prontos</h2>
+                </div>
                 <Button variant="contained" color="secondary"
                     onClick={() => iniciarProceso()}>Nueva Venta</Button>
             </div>

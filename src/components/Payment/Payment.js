@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './Payment.css'
-import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, Box} from '@material-ui/core';
+import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const Payment = (props) => {
@@ -14,7 +14,7 @@ const Payment = (props) => {
     const [openModalCash, setOpenModalCash] = useState(false);
     const [openModalCard, setOpenModalCard] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(1);
-    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: '', monto: '' });
+    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: null, monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
 
@@ -106,21 +106,88 @@ const Payment = (props) => {
         return vuelto;
     }
 
+    function createRequestBody() {
+        let details = [];
+        items.forEach(it => {
+            details.push({ Product: { SKU: it.sku }, Quantity: it.cantidad })
+        });
+
+        // Sample {
+        //     "Employee": {
+        //         "Id": 1
+        //     },
+        //     "PaymentMethod": 1,
+        //         "Details":
+        //     [
+        //         {
+        //             "Product": {
+        //                 "SKU": "123ABC456DEF"
+        //             },
+        //             "Quantity": 30
+        //         },
+        //         {
+        //             "Product": {
+        //                 "SKU": "ABC123DEF456"
+        //             },
+        //             "Quantity": 3
+        //         }
+        //     ]
+
+        // }
+
+        let body = {
+            Employee: { id: parseInt(localStorage.getItem('userId'))},
+            PaymentMethod: 1,
+            Details: details
+        }
+        console.log(body);
+        return body;
+
+    }
+
+    async function saveSaleService() {
+
+        let h = new Headers()
+        h.append('Content-Type', 'application/json');
+
+        let req = createRequestBody();
+
+        console.log(req);
+
+        let response = await fetch('https://master-market.azurewebsites.net/api/Sale/SaveSale', {
+            method: 'POST',
+            mode: 'cors',
+            headers: h,
+            body: JSON.stringify(req)
+        });
+        let json = await response.json();
+
+        return json;
+
+    }
+
     function finalizarVenta() {
-        console.log('enviar a backend')
         //TODO consumir servicio
-        props.fin();
+        saveSaleService().then(
+            (response) => {
+                console.log(response)
+                if (response.success) {
+                    props.fin();
+                } else {
+                    console.log('err')
+                }
+            }
+        )
 
     }
 
     function renderPaymentMethods(e) {
         return (
             <ListItem className="row-list" key={e.id}>
-                <ListItemText key={`name-${e.id}`}
-                    primary={e.dni}
-                    secondary={`${e.tarjeta}`}
-                />
-                <ListItemText key={`total-${e.id}`}
+                {e.tarjeta ?
+                    <ListItemText key={`name-${e.tarjeta}`} primary={e.dni} secondary={`${e.tarjeta}`} />
+                    : <ListItemText key={`efectivo-${e.monto}`} primary={"Efectivo"} />}
+                <ListItemText key={`total-${e.monto}`}
                     primary={`$ ${e.monto}`}
                 />
                 <ListItemSecondaryAction>
@@ -223,14 +290,14 @@ const Payment = (props) => {
                         <div className="select-payment">
                             <p>Método de Pago</p>
                             <Box m={2} pt={3}>
-                            <Button variant="contained" color="secondary"
-                                onClick={() => {setOpenModalCash(true);setOpenModal(false);}}
+                                <Button variant="contained" color="secondary"
+                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); }}
                                 >Pago contado</Button></Box>
                             <Box m={2} pt={3}>
-                            <Button variant="contained" color="secondary" 
-                                onClick={() => {setOpenModalCard(true);setOpenModal(false);}}
-                                >Pago tarjeta</Button></Box>     
-                          
+                                <Button variant="contained" color="secondary"
+                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); }}
+                                >Pago tarjeta</Button></Box>
+
                         </div>
                     </Fade>
                 </Modal>
