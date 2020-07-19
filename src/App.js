@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { NavBar, AdminLogin, Ventas, ProductoABM, Facturacion, EmpleadoABM } from './components';
 import banner from './assets/kiwki2.jpg'
 
@@ -11,15 +11,15 @@ function App() {
   const [logok, setLogok] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  function handleLogin(user){
+  function handleLogin(user) {
     console.log(user);
-    localStorage.setItem('userId',user.id);
-    localStorage.setItem('fullname',user.fullName);
+    localStorage.setItem('userId', user.id);
+    localStorage.setItem('fullname', user.fullName);
     setLogok(true);
     setIsAdmin(user.isAdmin);
   }
 
-  function handleLogout(){
+  function handleLogout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('fullname');
     setLogok(null);
@@ -30,7 +30,8 @@ function App() {
       return (
         <div className="App">
           <Router>
-            <NavBar logout={() => setLogok(null)} admin={true} />
+            <Redirect from="/" to="/cashier" />
+            <NavBar logout={() => handleLogout} admin={true} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas />} />
               <Route exact path="/employees" render={() => <EmpleadoABM />} />
@@ -44,7 +45,8 @@ function App() {
       return (
         <div className="App">
           <Router>
-            <NavBar logout={() => setLogok(null)} admin={false} />
+            <Redirect from="/" to="/cashier" />
+            <NavBar logout={() => handleLogout} admin={false} />
             <Switch>
               <Route exact path="/cashier" render={() => <Ventas />} />
               <Route exact path="/finances" render={() => <Facturacion />} />
