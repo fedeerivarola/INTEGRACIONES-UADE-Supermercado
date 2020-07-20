@@ -187,6 +187,7 @@ const Ventas = () => {
                         <div>
                             <h2>Stock</h2>
                             <div className="list-productos">
+                                <h3>Seleccione un producto</h3>
                                 <div className="list-items">
                                     <List>
                                         {productos.map((e) => renderList(e))}
