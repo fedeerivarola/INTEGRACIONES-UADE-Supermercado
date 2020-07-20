@@ -249,7 +249,7 @@ const Payment = (props) => {
             <div className="Payment">
 
                 <div className="ticket-payment">
-                    <h4>{`Vendedor: ${ticket.vendedor}`}</h4>
+                    <h4>{`Vendedor: ${ticket.vendedor.name}`}</h4>
                     <h4>{`Fecha: ${getFecha()}`}</h4>
                     <div className="list-items">
                         <List key="items-ticket">

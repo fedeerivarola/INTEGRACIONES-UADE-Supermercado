@@ -10,7 +10,7 @@ const Ventas = () => {
     const [itemsTicket, setItemsTicket] = useState();
     const [selectedItem, setSelectedItem] = useState(null);
     const [cantidadItem, setCantidadItem] = useState(1);
-    const vendedor = 'admin'
+    const vendedor = {id: localStorage.getItem('userId'), name: localStorage.getItem('fullname')}
     const [step, setStep] = useState('0');
     const [ticket, setTicket] = useState(null);
 
