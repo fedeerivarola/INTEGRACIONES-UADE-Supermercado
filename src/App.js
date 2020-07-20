@@ -13,6 +13,15 @@ function App() {
   const [logok, setLogok] = useState(active);
   const [isAdmin, setIsAdmin] = useState(false);
 
+  async function timeOutSession() {
+    setInterval(() => {
+      if (active) {
+        handleLogout();
+        alert('Session expired');
+      }
+    }, 10000);
+  }
+
   function handleLogin(user) {
     console.log(user);
     localStorage.setItem('userId', user.id);
@@ -25,9 +34,13 @@ function App() {
     localStorage.removeItem('userId');
     localStorage.removeItem('fullname');
     setLogok(null);
+
   }
 
   if (logok) {
+
+    // timeOutSession();
+
     if (isAdmin) {
       return (
         <div className="App">
