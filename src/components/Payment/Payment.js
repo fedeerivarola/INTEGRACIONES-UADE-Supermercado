@@ -13,7 +13,8 @@ const Payment = (props) => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalCash, setOpenModalCash] = useState(false);
     const [openModalCard, setOpenModalCard] = useState(false);
-    const [selectedMethod, setSelectedMethod] = useState(1);
+    const [openModalCardDebit, setOpenModalCardDebit] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState(false);
     const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: null, monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
@@ -69,6 +70,7 @@ const Payment = (props) => {
                 setPaymentMethods(upd);
                 setNewPaymentMethod({ paymentMethod: '', dni: '', tarjeta: '', monto: '' })
                 setOpenModalCard(false);
+                setOpenModalCardDebit(false);
                 setOpenModalCash(false);
             }
         }
@@ -137,7 +139,7 @@ const Payment = (props) => {
 
         let body = {
             Employee: { id: parseInt(localStorage.getItem('userId'))},
-            PaymentMethod: 1,
+            PaymentMethod: selectedMethod,
             Details: details
         }
         console.log(body);
@@ -291,13 +293,16 @@ const Payment = (props) => {
                             <p>Método de Pago</p>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); }}
+                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1);}}
                                 >Pago contado</Button></Box>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); }}
-                                >Pago tarjeta</Button></Box>
-
+                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3);}}
+                                >Pago tarjeta de crédito</Button></Box>
+                            <Box m={2} pt={3}>
+                                <Button variant="contained" color="secondary"
+                                    onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2);}}
+                                >Pago tarjeta de débito</Button></Box>
                         </div>
                     </Fade>
                 </Modal>
@@ -315,7 +320,26 @@ const Payment = (props) => {
                 >
                     <Fade in={openModalCard}>
                         <div className="select-payment">
-                            <p>Pago tarjeta</p>
+                            <p>Pago tarjeta de crédito</p>
+                            {renderFormPayment()}
+                        </div>
+                    </Fade>
+                </Modal>
+
+                <Modal className="modal"
+                    open={openModalCardDebit}
+                    onClose={() => setOpenModalCardDebit(false)}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                    closeAfterTransition
+                    BackdropComponent={Backdrop}
+                    BackdropProps={{
+                        timeout: 500,
+                    }}
+                >
+                    <Fade in={openModalCardDebit}>
+                        <div className="select-payment">
+                            <p>Pago tarjeta de débito</p>
                             {renderFormPayment()}
                         </div>
                     </Fade>
@@ -339,6 +363,8 @@ const Payment = (props) => {
                         </div>
                     </Fade>
                 </Modal>
+
+                
 
             </div>
             <div>
