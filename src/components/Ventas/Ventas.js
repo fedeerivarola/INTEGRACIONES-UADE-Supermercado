@@ -99,7 +99,7 @@ const Ventas = () => {
             items.forEach(element => {
                 total += parseFloat(element.total)
             });
-            return total;
+            return total.toFixed(2);
         } else {
             return 0;
         }
