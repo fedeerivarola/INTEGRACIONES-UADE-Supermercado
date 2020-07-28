@@ -16,7 +16,7 @@ const Payment = (props) => {
     const [openModalCardDebit, setOpenModalCardDebit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(false);
     const [disableBtnPago, setDisableBtnPago] = useState(false);
-    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: null, monto: '' });
+    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', number: null, monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
 
@@ -125,7 +125,7 @@ const Payment = (props) => {
                 {
                     "Employee": {
                         "Id": 1
-                    },
+                        },
                     "PaymentMethod": 3,
                     "CardDetails": {
                         "Name" : "Fran",
@@ -156,6 +156,7 @@ const Payment = (props) => {
         let body = {
             Employee: { id: parseInt(localStorage.getItem('userId')) },
             PaymentMethod: selectedMethod,
+            CardDetails: paymentMethods[0],
             Details: details
         }
         console.log(body);
