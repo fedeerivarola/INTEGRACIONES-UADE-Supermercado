@@ -93,7 +93,7 @@ const Payment = (props) => {
             payment.forEach(element => {
                 total += parseFloat(element.monto)
             });
-            return total;
+            return (total.toFixed(2));
         } else {
             return 0;
         }
@@ -113,7 +113,7 @@ const Payment = (props) => {
             }
         }
 
-        return vuelto;
+        return (vuelto.toFixed(2));
     }
 
     function createRequestBody() {
