@@ -121,40 +121,40 @@ const Payment = (props) => {
         items.forEach(it => {
             details.push({ Product: { SKU: it.sku }, Quantity: it.cantidad })
         });
-/*
-        {
-            "Employee": {
-                "Id": 1
-            },
-            "PaymentMethod": 3,
-            "CardDetails": {
-                "Name" : "Fran",
-                "Number": "6011007182444785",
-                "DNI": "123123",
-                "CVV": "728",
-                "ExpirationDate": "0325"
-            },
-            "Details": 
-            [
+        /*
                 {
-                    "Product": {
-                        "SKU": "123ABC456DEF"
+                    "Employee": {
+                        "Id": 1
                     },
-                    "Quantity": 1
-                },
-                {
-                    "Product": {
-                        "SKU": "ABC123DEF456"
+                    "PaymentMethod": 3,
+                    "CardDetails": {
+                        "Name" : "Fran",
+                        "Number": "6011007182444785",
+                        "DNI": "123123",
+                        "CVV": "728",
+                        "ExpirationDate": "0325"
                     },
-                    "Quantity": 3
+                    "Details": 
+                    [
+                        {
+                            "Product": {
+                                "SKU": "123ABC456DEF"
+                            },
+                            "Quantity": 1
+                        },
+                        {
+                            "Product": {
+                                "SKU": "ABC123DEF456"
+                            },
+                            "Quantity": 3
+                        }
+                    ]
+                
                 }
-            ]
-        
-        }
-*/
+        */
         console.log(paymentMethods);
         let body = {
-            Employee: { id: parseInt(localStorage.getItem('userId'))},
+            Employee: { id: parseInt(localStorage.getItem('userId')) },
             PaymentMethod: selectedMethod,
             Details: details
         }
@@ -202,9 +202,9 @@ const Payment = (props) => {
     function renderPaymentMethods(e) {
         return (
             <ListItem className="row-list" key={e.id}>
-                {e.tarjeta ?
-                    <ListItemText key={`name-${e.tarjeta}`} primary={e.dni} secondary={`${e.tarjeta}`} />
-                    : <ListItemText key={`efectivo-${e.monto}`} primary={"Efectivo"} />}
+                {selectedMethod === 1 ? <ListItemText key={`efectivo-${e.monto}`} primary={"Efectivo"} /> :
+                    <ListItemText key={`name-${e.number}`} primary={e.dni} secondary={`${e.number}`} />
+                }
                 <ListItemText key={`total-${e.monto}`}
                     primary={`$ ${e.monto}`}
                 />
@@ -315,15 +315,15 @@ const Payment = (props) => {
                             <p>Método de Pago</p>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1);}}
+                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1); }}
                                 >Pago contado</Button></Box>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3);}}
+                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3); }}
                                 >Pago tarjeta de crédito</Button></Box>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2);}}
+                                    onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2); }}
                                 >Pago tarjeta de débito</Button></Box>
                         </div>
                     </Fade>
@@ -386,7 +386,7 @@ const Payment = (props) => {
                     </Fade>
                 </Modal>
 
-                
+
 
             </div>
             <div>
