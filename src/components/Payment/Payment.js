@@ -15,6 +15,7 @@ const Payment = (props) => {
     const [openModalCard, setOpenModalCard] = useState(false);
     const [openModalCardDebit, setOpenModalCardDebit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(false);
+    const [disableBtnPago, setDisableBtnPago] = useState(false);
     const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', tarjeta: null, monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
@@ -31,6 +32,7 @@ const Payment = (props) => {
         i !== -1 && updItems.splice(i, 1);
 
         setPaymentMethods(updItems);
+        setDisableBtnPago(false);
     }
 
     // function handleChange(event) {
@@ -77,6 +79,7 @@ const Payment = (props) => {
                 setOpenModalCard(false);
                 setOpenModalCardDebit(false);
                 setOpenModalCash(false);
+                setDisableBtnPago(true);
             }
         }
 
@@ -118,30 +121,38 @@ const Payment = (props) => {
         items.forEach(it => {
             details.push({ Product: { SKU: it.sku }, Quantity: it.cantidad })
         });
-
-        // Sample {
-        //     "Employee": {
-        //         "Id": 1
-        //     },
-        //     "PaymentMethod": 1,
-        //         "Details":
-        //     [
-        //         {
-        //             "Product": {
-        //                 "SKU": "123ABC456DEF"
-        //             },
-        //             "Quantity": 30
-        //         },
-        //         {
-        //             "Product": {
-        //                 "SKU": "ABC123DEF456"
-        //             },
-        //             "Quantity": 3
-        //         }
-        //     ]
-
-        // }
-
+/*
+        {
+            "Employee": {
+                "Id": 1
+            },
+            "PaymentMethod": 3,
+            "CardDetails": {
+                "Name" : "Fran",
+                "Number": "6011007182444785",
+                "DNI": "123123",
+                "CVV": "728",
+                "ExpirationDate": "0325"
+            },
+            "Details": 
+            [
+                {
+                    "Product": {
+                        "SKU": "123ABC456DEF"
+                    },
+                    "Quantity": 1
+                },
+                {
+                    "Product": {
+                        "SKU": "ABC123DEF456"
+                    },
+                    "Quantity": 3
+                }
+            ]
+        
+        }
+*/
+        console.log(paymentMethods);
         let body = {
             Employee: { id: parseInt(localStorage.getItem('userId'))},
             PaymentMethod: selectedMethod,
@@ -283,7 +294,7 @@ const Payment = (props) => {
                         <label>Total: ${getTotal()}</label>
                         {getVuelto() > 0 ? <label>Vuelto: ${getVuelto()}</label> : <label>Debe: ${getVuelto() * (-1)}</label>}
                     </div>
-                    <Button variant="contained" color="secondary"
+                    <Button variant="contained" color="secondary" disabled={disableBtnPago}
                         onClick={() => setOpenModal(true)}
                     >Agregar pago</Button>
                 </div>
