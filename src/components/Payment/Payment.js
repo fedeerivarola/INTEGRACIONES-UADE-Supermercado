@@ -143,7 +143,7 @@ const Payment = (props) => {
         // }
 
         let body = {
-            Employee: { id: parseInt(localStorage.getItem('userId'))},
+            Employee: { id: parseInt(localStorage.getItem('userId')) },
             PaymentMethod: selectedMethod,
             Details: details
         }
@@ -263,13 +263,13 @@ const Payment = (props) => {
 
                 <div className="ticket-payment">
                     <h4>{`Vendedor: ${ticket.vendedor.name}`}</h4>
-                    <h4>{`Fecha: ${getFecha()}`}</h4>
+                    <h5 style={{ marginBottom: 0 }}>{`Fecha: ${getFecha()}`}</h5>
                     <div className="list-items">
                         <List key="items-ticket">
                             {items ? items.map((e) => renderItemsTicket(e)) : null}
                         </List>
                     </div>
-                    <h4>{`Total: ${ticket.total}`}</h4>
+                    <p className="total-payment">{`Total: ${ticket.total}`}</p>
                 </div>
 
                 <div className="pagos">
@@ -279,7 +279,6 @@ const Payment = (props) => {
                         </List>
                     </div>
                     <div className="detail-payment">
-
                         <label>Total: ${getTotal()}</label>
                         {getVuelto() > 0 ? <label>Vuelto: ${getVuelto()}</label> : <label>Debe: ${getVuelto() * (-1)}</label>}
                     </div>
@@ -304,15 +303,15 @@ const Payment = (props) => {
                             <p>Método de Pago</p>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1);}}
+                                    onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1); }}
                                 >Pago contado</Button></Box>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3);}}
+                                    onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3); }}
                                 >Pago tarjeta de crédito</Button></Box>
                             <Box m={2} pt={3}>
                                 <Button variant="contained" color="secondary"
-                                    onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2);}}
+                                    onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2); }}
                                 >Pago tarjeta de débito</Button></Box>
                         </div>
                     </Fade>
@@ -375,7 +374,7 @@ const Payment = (props) => {
                     </Fade>
                 </Modal>
 
-                
+
 
             </div>
             <div>
