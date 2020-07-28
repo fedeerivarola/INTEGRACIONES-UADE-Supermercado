@@ -46,11 +46,16 @@ const Payment = (props) => {
         if (e.target.id === 'dni') {
             newPM.dni = e.target.value;
         } else if (e.target.id === 'tarjeta') {
-            newPM.tarjeta = e.target.value;
+            newPM.number = e.target.value;
+        } else if (e.target.id === 'nombre') {
+            newPM.name = e.target.value;
+        } else if (e.target.id === 'cvv') {
+            newPM.cvv = e.target.value;
+        } else if (e.target.id === 'expiration') {
+            newPM.expirationDate = e.target.value;
         } else if (e.target.id === 'monto') {
             newPM.monto = e.target.value;
         }
-
         newPM.paymentMethod = selectedMethod;
 
         setNewPaymentMethod(newPM);
@@ -223,6 +228,12 @@ const Payment = (props) => {
                 <input id='dni' onChange={(e) => handleInput(e)} /> <br />
                 <label>Numero Tarjeta</label>
                 <input id='tarjeta' onChange={(e) => handleInput(e)} /><br />
+                <label>Nombre y apellido</label>
+                <input id='nombre' onChange={(e) => handleInput(e)} /><br />
+                <label>CVC</label>
+                <input id='cvv' onChange={(e) => handleInput(e)} /><br />
+                <label>Vencimiento</label>
+                <input id='expiration' onChange={(e) => handleInput(e)} /><br />
                 <label>Monto</label>
                 <input id='monto' onChange={(e) => handleInput(e)} /><br />
                 <Button
