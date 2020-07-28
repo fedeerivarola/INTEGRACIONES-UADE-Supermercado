@@ -10,7 +10,7 @@ const Ventas = () => {
     const [itemsTicket, setItemsTicket] = useState();
     const [selectedItem, setSelectedItem] = useState(null);
     const [cantidadItem, setCantidadItem] = useState(1);
-    const vendedor = {id: localStorage.getItem('userId'), name: localStorage.getItem('fullname')}
+    const vendedor = { id: localStorage.getItem('userId'), name: localStorage.getItem('fullname') }
     const [step, setStep] = useState('0');
     const [ticket, setTicket] = useState(null);
 
@@ -193,16 +193,17 @@ const Ventas = () => {
                                         {productos.map((e) => renderList(e))}
                                     </List>
                                 </div>
-                                <div className='bottom-list'>
-                                    <label>Cantidad: </label>
-                                    <input className="inputCant" placeholder='1' onChange={(e) => setCantidadItem(e.target.value)} />
+                                <div className="bottom-list">
+                                    <div className="quantity-container">
+                                        <label>Cantidad: </label>
+                                        <input className="inputCant" placeholder='1' onChange={(e) => setCantidadItem(e.target.value)} />
+                                    </div>
                                     <Button className="addToTicket" variant="contained" color="secondary"
-                                        onClick={() => { addItemToTicket() }}
-                                    >Agregar a ticket</Button>
+                                        onClick={() => { addItemToTicket() }}>Agregar a ticket</Button>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className="ticket-container">
                             <h2>Ticket de Venta</h2>
                             <div className="ticket">
                                 <div className="list-items">
@@ -211,7 +212,9 @@ const Ventas = () => {
                                     </List>
                                 </div>
                                 <div className='bottom-ticket'>
-                                    <label>Total: ${getTotalTicket()}</label>
+                                    <div className="quantity-container">
+                                        <label>Total: ${getTotalTicket()}</label>
+                                    </div>
                                     <Button className="clean-ticket" variant="contained" color="secondary"
                                         onClick={() => vaciarTicket()}
                                     >Vaciar ticket</Button>
@@ -219,9 +222,8 @@ const Ventas = () => {
                             </div>
                         </div>
                     </div>
-                    <Button className="boton" variant="contained" color="secondary"
-                        onClick={facturar}
-                    >Siguiente</Button>
+                    <Button className="boton" variant="contained" color="primary"
+                        onClick={facturar}>Siguiente</Button>
                 </div>
             )
         } else {

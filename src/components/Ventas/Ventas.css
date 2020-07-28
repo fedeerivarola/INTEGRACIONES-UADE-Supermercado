@@ -14,11 +14,12 @@
     height: 400px;
     width: 450px;
     /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
-    background: greenyellow;
+    background:white;
     box-shadow: 0px 3px 6px #00000029;
     opacity: 1;
     display: flex;
     flex-direction: column;
+    padding-top: 15px;
 }
 
 .row-list {
@@ -44,10 +45,10 @@
 }
 
 .bottom-list {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     bottom: 0;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     margin-bottom: 20px;
 }
 
@@ -59,17 +60,24 @@
     height: 400px;
     width: 450px;
     /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
-    background: greenyellow;
+    background: white;
     box-shadow: 0px 3px 6px #00000029;
     opacity: 1;
-    margin-left: 100px;
+    padding-top: 15px;
+    /* border-width: 2px; */
+    /* margin-left: 100px; */
+}
+
+.ticket-container{
+    padding-left: 2em;
 }
 
 .bottom-ticket {
     width: 100%;
-    margin: 25px;
+    /* margin: 25px; */
+    padding-bottom: 20px;
     position: absolute;
-    height: 30px;
+    /* height: 30px; */
     bottom: 0;
 
 }
@@ -80,7 +88,7 @@ label{
 
 .inputCant{
     width: 20px;
-    margin-right: 30px;
+    /* margin-right: 30px; */
 }
 
 .clean-ticket {
@@ -122,4 +130,12 @@ label{
 
 .list-items::-webkit-scrollbar-track:hover, .list-items::-webkit-scrollbar-track:active {
     background: transparent;
+}
+
+.aling-center{
+    text-align: center;
+}
+
+.quantity-container{
+    padding-bottom: 10px;
 }
