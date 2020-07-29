@@ -237,7 +237,7 @@ const Payment = (props) => {
             <div>
                 {/* <p>Completar tarjeta</p> */}
                 <div style={{ paddingBottom: 5 }}>
-                    <label style={{ width: 50 }}>DNI Cliente</label>
+                    <label>DNI Cliente</label>
                     <input id='dni' onChange={(e) => handleInput(e)} />
                 </div>
                 <div style={{ paddingBottom: 5 }}>
