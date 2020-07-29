@@ -235,23 +235,37 @@ const Payment = (props) => {
     function renderFormPayment() {
         return (
             <div>
-                <p>Completar tarjeta</p>
-                <label>DNI Cliente</label>
-                <input id='dni' onChange={(e) => handleInput(e)} /> <br />
-                <label>Numero Tarjeta</label>
-                <input id='tarjeta' onChange={(e) => handleInput(e)} /><br />
-                <label>Nombre y apellido</label>
-                <input id='nombre' onChange={(e) => handleInput(e)} /><br />
-                <label>CVC</label>
-                <input id='cvv' onChange={(e) => handleInput(e)} /><br />
-                <label>Vencimiento</label>
-                <input id='expiration' onChange={(e) => handleInput(e)} /><br />
-                <label>Monto</label>
-                <input id='monto' onChange={(e) => handleInput(e)} /><br />
-                <Button
-                    variant="contained" color="secondary"
-                    onClick={() => savePaymentMethods()}
-                >Aceptar</Button>
+                {/* <p>Completar tarjeta</p> */}
+                <div style={{ paddingBottom: 5 }}>
+                    <label style={{ width: 50 }}>DNI Cliente</label>
+                    <input id='dni' onChange={(e) => handleInput(e)} />
+                </div>
+                <div style={{ paddingBottom: 5 }}>
+                    <label>Numero Tarjeta</label>
+                    <input id='tarjeta' onChange={(e) => handleInput(e)} />
+                </div>
+                <div style={{ paddingBottom: 5 }}>
+                    <label>Nombre y apellido</label>
+                    <input id='nombre' onChange={(e) => handleInput(e)} />
+                </div>
+                <div style={{ paddingBottom: 5 }}>
+                    <label>CVC</label>
+                    <input id='cvv' onChange={(e) => handleInput(e)} />
+                </div>
+                <div style={{ paddingBottom: 5 }}>
+                    <label>Vencimiento</label>
+                    <input id='expiration' onChange={(e) => handleInput(e)} />
+                </div>
+                <div style={{ paddingBottom: 10 }}>
+                    <label>Monto</label>
+                    <input id='monto' onChange={(e) => handleInput(e)} />
+                </div>
+                <div className="align-center">
+                    <Button
+                        variant="contained" color="secondary"
+                        onClick={() => savePaymentMethods()}
+                    >Aceptar</Button>
+                </div>
             </div>
         )
     }
@@ -259,12 +273,16 @@ const Payment = (props) => {
     function renderFormPaymentCash() {
         return (
             <div>
-                <label>Monto</label>
-                <input id='monto' onChange={(e) => handleInput(e)} /><br />
-                <Button
-                    variant="contained" color="secondary"
-                    onClick={() => savePaymentMethods()}
-                >Aceptar</Button>
+                <div style={{ paddingBottom: 10 }}>
+                    <label>Monto</label>
+                    <input id='monto' onChange={(e) => handleInput(e)} /><br />
+                </div>
+                <div className="align-center">
+                    <Button
+                        variant="contained" color="secondary"
+                        onClick={() => savePaymentMethods()}
+                    >Aceptar</Button>
+                </div>
             </div>
         )
     }
@@ -311,18 +329,18 @@ const Payment = (props) => {
                     }}
                 >
                     <Fade in={openModal}>
-                        <div className="select-payment">
-                            <p>Método de Pago</p>
-                            <Box m={2} pt={3}>
-                                <Button variant="contained" color="secondary"
+                        <div className="select-payment align-center">
+                            <h2>Método de Pago</h2>
+                            <Box className="box-style">
+                                <Button variant="contained" color="secondary" className="align-center"
                                     onClick={() => { setOpenModalCash(true); setOpenModal(false); setSelectedMethod(1); }}
                                 >Pago contado</Button></Box>
-                            <Box m={2} pt={3}>
-                                <Button variant="contained" color="secondary"
+                            <Box className="box-style">
+                                <Button variant="contained" color="secondary" className="align-center"
                                     onClick={() => { setOpenModalCard(true); setOpenModal(false); setSelectedMethod(3); }}
                                 >Pago tarjeta de crédito</Button></Box>
-                            <Box m={2} pt={3}>
-                                <Button variant="contained" color="secondary"
+                            <Box className="box-style">
+                                <Button variant="contained" color="secondary" className="align-center"
                                     onClick={() => { setOpenModalCardDebit(true); setOpenModal(false); setSelectedMethod(2); }}
                                 >Pago tarjeta de débito</Button></Box>
                         </div>
@@ -342,7 +360,7 @@ const Payment = (props) => {
                 >
                     <Fade in={openModalCard}>
                         <div className="select-payment">
-                            <p>Pago tarjeta de crédito</p>
+                            <h3 className="align-center">Pago tarjeta de crédito</h3>
                             {renderFormPayment()}
                         </div>
                     </Fade>
@@ -361,7 +379,7 @@ const Payment = (props) => {
                 >
                     <Fade in={openModalCardDebit}>
                         <div className="select-payment">
-                            <p>Pago tarjeta de débito</p>
+                            <h3 className="align-center">Pago tarjeta de débito</h3>
                             {renderFormPayment()}
                         </div>
                     </Fade>
@@ -380,7 +398,7 @@ const Payment = (props) => {
                 >
                     <Fade in={openModalCash}>
                         <div className="select-payment">
-                            <p>Pago contado</p>
+                            <h3 className="align-center">Pago contado</h3>
                             {renderFormPaymentCash()}
                         </div>
                     </Fade>
