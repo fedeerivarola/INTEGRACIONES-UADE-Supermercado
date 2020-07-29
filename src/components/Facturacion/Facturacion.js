@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './Facturacion.css'
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 
 
 const Facturacion = () => {
@@ -72,23 +72,38 @@ const Facturacion = () => {
     }
     return (
         <div>
-            <h2>Facturación al contado</h2>
-            <h2>Facturación según medio de pago:</h2>
+            {/* <h2>Facturación al contado</h2> */}
+            <h2 style={{ paddingTop: 45 }}>Facturación por medio de pago</h2>
 
-            <div className="facturacion row-bottom-margin">
-                <h4 >Ventas del dia: {date}</h4>
-                <div className="facturacion-col row-bottom-margin">
-                    <p>Total por tarjeta de credito:</p>
-                    <p>{detail.creditTotal}</p>
-                </div>
-                <div className="facturacion-col row-bottom-margin ">
-                    <p>Total por tarjeta de debito:</p>
-                    <p>{detail.debitTotal}</p>
-                </div>
-                <div className="facturacion-col row-bottom-margin ">
-                    <p>Total por contado:</p>
-                    <p>{detail.cashTotal}</p>
-                </div>
+            <div className="facturacion">
+                <p style={{ marginTop: 0 }}><strong>Ventas del dia</strong> {date}</p>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    style={{ paddingBottom: 15 }}
+                >
+                    Total por tarjeta de credito <br /> $ {detail.creditTotal}
+                </Grid>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    style={{ paddingBottom: 15 }}
+                >
+                    Total por tarjeta de debito <br /> $ {detail.debitTotal}
+                </Grid>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                    style={{ paddingBottom: 15 }}
+                >
+                    Total por contado <br /> $ {detail.cashTotal}
+                </Grid>
                 <div>
                     <label>Fecha: </label>
                     <input className="inputDate" id='MM' placeholder='MM' onChange={(e) => handleInput(e)} />

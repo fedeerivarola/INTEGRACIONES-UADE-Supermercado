@@ -3,11 +3,22 @@
     height: 400px;
     width: 450px;
     /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
-    background: yellowgreen;
+    background: white;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;
     margin-top: 100px;
+}
+
+.detail-payment{
+    padding: 10px;
+}
+
+.total-payment{
+    bottom: 0;
+    /* padding-bottom: 20px; */
+    font-weight: bold;
+    margin-top: 0;
 }
 
 .pagos {
@@ -15,7 +26,7 @@
     height: 400px;
     width: 450px;
     /* background: rgb(84, 163, 72) 0% 0% no-repeat padding-box; */
-    background: yellowgreen;
+    background: white;
     box-shadow: 0px 3px 6px #00000029;
     border-radius: 12px;
     opacity: 1;
@@ -40,7 +51,7 @@
 
 
 .select-payment {
-    height: 500px;
+    height: 20em;
     width: 400px;
     background: #FFFFFF 0% 0% no-repeat padding-box;
     box-shadow: 0px 3px 6px #00000029;
@@ -52,6 +63,13 @@
     margin-top: 100px;
 }
 
+.align-center{
+    text-align: center;
+}
+
+.box-style{
+    padding-bottom: 0.9em;
+}
 
 .list-items {
     margin-top: 20px;
