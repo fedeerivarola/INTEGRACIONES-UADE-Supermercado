@@ -121,37 +121,6 @@ const Payment = (props) => {
         items.forEach(it => {
             details.push({ Product: { SKU: it.sku }, Quantity: it.cantidad })
         });
-        /*
-                {
-                    "Employee": {
-                        "Id": 1
-                        },
-                    "PaymentMethod": 3,
-                    "CardDetails": {
-                        "Name" : "Fran",
-                        "Number": "6011007182444785",
-                        "DNI": "123123",
-                        "CVV": "728",
-                        "ExpirationDate": "0325"
-                    },
-                    "Details": 
-                    [
-                        {
-                            "Product": {
-                                "SKU": "123ABC456DEF"
-                            },
-                            "Quantity": 1
-                        },
-                        {
-                            "Product": {
-                                "SKU": "ABC123DEF456"
-                            },
-                            "Quantity": 3
-                        }
-                    ]
-                
-                }
-        */
         console.log(paymentMethods);
         let body = {
             Employee: { id: parseInt(localStorage.getItem('userId')) },

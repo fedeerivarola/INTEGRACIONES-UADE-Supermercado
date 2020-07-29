@@ -109,22 +109,26 @@ const Ventas = () => {
         /*id, name, unitPrice, cantidad, total */
 
         if (selectedItem) {
-            let newItemTicket = {
-                ...selectedItem,
-                cantidad: cantidadItem,
-                total: (parseFloat(selectedItem.unitPrice) * parseInt(cantidadItem))
+            if (selectedItem.stock > cantidadItem) {
+                let newItemTicket = {
+                    ...selectedItem,
+                    cantidad: cantidadItem,
+                    total: (parseFloat(selectedItem.unitPrice) * parseInt(cantidadItem))
+                }
+
+                delete newItemTicket.stock
+
+                let newTicket;
+                itemsTicket ? newTicket = [...itemsTicket] : newTicket = [];
+
+
+                newTicket.push(newItemTicket);
+                console.log(newTicket)
+                setItemsTicket(newTicket)
+                setSelectedItem(selectedItem)
+            } else {
+                alert('No hay suficiente stock');
             }
-
-            delete newItemTicket.stock
-
-            let newTicket;
-            itemsTicket ? newTicket = [...itemsTicket] : newTicket = [];
-
-
-            newTicket.push(newItemTicket);
-            console.log(newTicket)
-            setItemsTicket(newTicket)
-            setSelectedItem(selectedItem)
         } else {
             alert('Selecciona un item')
         }
@@ -136,6 +140,7 @@ const Ventas = () => {
 
         let i = updItems.indexOf(e);
         i !== -1 && updItems.splice(i, 1);
+
 
         setItemsTicket(updItems);
     }
