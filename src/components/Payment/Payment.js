@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './Payment.css'
 import { Button, IconButton, List, ListItem, ListItemText, ListItemSecondaryAction, Fade, Modal, Backdrop, Box } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import moment from 'moment';
 
 const Payment = (props) => {
 
@@ -16,7 +17,7 @@ const Payment = (props) => {
     const [openModalCardDebit, setOpenModalCardDebit] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(false);
     const [disableBtnPago, setDisableBtnPago] = useState(false);
-    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', number: null, monto: '' });
+    const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', number: '', cvv: '', expirationDate: '', name: '', monto: '' });
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
 
@@ -71,11 +72,36 @@ const Payment = (props) => {
             if (newPaymentMethod.monto === '') {
                 alert('Debe ingresar un monto')
             } else if (parseFloat(newPaymentMethod.monto) <= 0) {
-                alert('Ingrese un monto valido')
-            } else {
+                alert('Ingrese un monto válido')
+            } else
+            if(selectedMethod===2||selectedMethod==3){
+                if (newPaymentMethod.cvv.length< 3||newPaymentMethod.cvv.length>3){
+                    alert('El CVV debe tener 3 dígitos.')
+                } else if(newPaymentMethod.dni.length<8||newPaymentMethod.dni.length>8) {
+                    alert('El dni debe tener 8 dígitos.')
+                } else if(newPaymentMethod.number.length<16||newPaymentMethod.number.length>16) {
+                    alert('El número de tarjeta debe tener 16 dígitos.')
+                } else if(newPaymentMethod.expirationDate.length<4||newPaymentMethod.expirationDate.length>4) {
+                    alert('La fecha de vencimiento debe tener 4 dígitos.')
+                } else if(newPaymentMethod.name.length<4) {
+                    alert('Debe ingresar un nombre de al menos 4 caracteres.')
+                } else if(moment(newPaymentMethod.expirationDate,"MMYY",true).isValid()){
+                    upd.push(newPaymentMethod);
+                    setPaymentMethods(upd);
+                    setNewPaymentMethod({ paymentMethod: '', dni: '', number: '', cvv: '', expirationDate: '', name: '', monto: ''  })
+                    setOpenModalCard(false);
+                    setOpenModalCardDebit(false);
+                    setOpenModalCash(false);
+                    setDisableBtnPago(true);
+                }
+                else{
+                    alert('La fecha de vencimiento debe tener el formato "MMYY.')
+                }
+            } else
+            {
                 upd.push(newPaymentMethod);
                 setPaymentMethods(upd);
-                setNewPaymentMethod({ paymentMethod: '', dni: '', tarjeta: '', monto: '' })
+                setNewPaymentMethod({ paymentMethod: '', dni: '', number: '', cvv: '', expirationDate: '', name: '', monto: ''  })
                 setOpenModalCard(false);
                 setOpenModalCardDebit(false);
                 setOpenModalCash(false);
