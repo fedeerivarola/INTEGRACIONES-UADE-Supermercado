@@ -105,6 +105,10 @@ const Ventas = () => {
         }
     }
 
+    function restarStock(it) {
+        
+    }
+
     function addItemToTicket() {
         /*id, name, unitPrice, cantidad, total */
 
@@ -124,6 +128,7 @@ const Ventas = () => {
 
                 newTicket.push(newItemTicket);
                 console.log(newTicket)
+                restarStock(selectedItem);
                 setItemsTicket(newTicket)
                 setSelectedItem(selectedItem)
             } else {

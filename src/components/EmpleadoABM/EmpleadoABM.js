@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './EmpleadoABM.css'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction } from '@material-ui/core';
+import { TextField, Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemAvatar, Avatar, ListItemSecondaryAction } from '@material-ui/core';
 
 
 const EmpleadoABM = () => {
@@ -20,6 +20,7 @@ const EmpleadoABM = () => {
         password: '',
         isAdmin: false
     });
+    
 
     //{"id":1,"firstName":"Gaston","lastName":"Larriera","identifier":35253231,"userName":"admin","password":"1234","isAdmin":true}
 
@@ -108,6 +109,16 @@ const EmpleadoABM = () => {
             newEmp.password = e.target.value;
         } else if (e.target.id === 'isAdmin') {
             newEmp.isAdmin = (e.target.value === 'si' ? true : false);
+        } else if (e.target.id === 'cuil') {
+            newEmp.cuil = e.target.value;
+        } else if (e.target.id === 'rem') {
+            newEmp.SueldoBasico = e.target.value;
+        } else if (e.target.id === 'category') {
+            newEmp.Categoria = e.target.value;
+        } else if (e.target.id === 'convenio') {
+            newEmp.Categoria = e.target.value;
+        } else if (e.target.id === 'cbu') {
+            newEmp.cbu = e.target.value;
         }
 
         setNewEmpleado(newEmp);
@@ -118,17 +129,27 @@ const EmpleadoABM = () => {
             <div className="formNewEmp">
                 <h2>Registrar nuevo empleado</h2>
                 <label>Legajo: </label>
-                <input id='identifier' type="number" onChange={(e) => handleInput(e)} />
+                <TextField id='identifier' type="number" onChange={(e) => handleInput(e)} />
                 <label>Nombre:</label>
-                <input id='nombre' onChange={(e) => handleInput(e)} />
+                <TextField id='nombre' onChange={(e) => handleInput(e)} />
                 <label>Apellido:</label>
-                <input id='lastName' onChange={(e) => handleInput(e)} />
+                <TextField id='lastName' onChange={(e) => handleInput(e)} />
+                <label>CUIL: </label>
+                <TextField id='cuil' type="number" onChange={(e) => handleInput(e)} />
+                <label>Categoria: </label>
+                <TextField id='category' onChange={(e) => handleInput(e)} />
+                <label>Convenio: </label>
+                <TextField id='convenio' onChange={(e) => handleInput(e)} />
+                <label>CBU: </label>
+                <TextField id='cbu' type="number" onChange={(e) => handleInput(e)} />
+                <label>Sueldo Basico: </label>
+                <TextField id='rem' type="number" onChange={(e) => handleInput(e)} />
                 <label>Usuario:</label>
-                <input id='userName' onChange={(e) => handleInput(e)} />
+                <TextField id='userName' onChange={(e) => handleInput(e)} />
                 <label>Password: </label>
-                <input id='password' type="password" onChange={(e) => handleInput(e)} />
+                <TextField id='password' type="password" onChange={(e) => handleInput(e)} />
                 <label>Usuario administrador</label>
-                <input id='isAdmin' type="checkbox" value={'si'} style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                <TextField id='isAdmin' type="checkbox" value={'si'} style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
                 {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}
                 <Button variant="contained" color="primary" onClick={() => createEmpleado()}>GUARDAR</Button>
             </div>
@@ -138,18 +159,18 @@ const EmpleadoABM = () => {
     function viewProfile() {
 
         return (
-            <div>
+            <div className="formNewEmp">
                 <h2>View profile empleado</h2>
-                <h4>Legajo: </h4>
-                <p>{selectedEmp.id}</p>
-                <h4>Nombre: </h4>
-                <p>{selectedEmp.firstName + ' ' + selectedEmp.lastName}</p>
-                <h4>Documento: </h4>
-                <p>{selectedEmp.identifier}</p>
-                <h4>usuario: </h4>
-                <p>{selectedEmp.userName}</p>
-                <h4>Es admin: </h4>
-                <p>{selectedEmp.isAdmin}</p>
+                <label>Legajo: </label>
+                <label>{selectedEmp.id}</label><br/>
+                <label>Nombre: </label>
+                <label>{selectedEmp.firstName + ' ' + selectedEmp.lastName}</label><br/>
+                <label>Documento: </label>
+                <label>{selectedEmp.identifier}</label><br/>
+                <label>usuario: </label>
+                <label>{selectedEmp.userName}</label><br/>
+                <label>Es admin: </label>
+                <label>{selectedEmp.isAdmin}</label><br/>
             </div>
         )
     }
