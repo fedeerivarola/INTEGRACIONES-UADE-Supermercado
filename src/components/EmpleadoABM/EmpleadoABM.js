@@ -20,7 +20,7 @@ const EmpleadoABM = () => {
         password: '',
         isAdmin: false
     });
-    
+
 
     //{"id":1,"firstName":"Gaston","lastName":"Larriera","identifier":35253231,"userName":"admin","password":"1234","isAdmin":true}
 
@@ -75,9 +75,11 @@ const EmpleadoABM = () => {
                     updEmpleados.push(newEmpleado)
                     setEmpleados(updEmpleados)
                     setOpenModal(false)
-                    alert(response.msg);
+                    //setErrMsg(response.msg);
+                    console.log(response.msg);
                 } else {
-                    setErrMsg(response.msg);
+                    //setErrMsg(response.msg);
+                    console.log(response.msg);
                 }
             });
     }
@@ -99,6 +101,8 @@ const EmpleadoABM = () => {
 
         if (e.target.id === 'identifier') {
             newEmp.identifier = parseInt(e.target.value);
+        } else if (e.target.id === 'identifier') {
+            newEmp.legajo = e.target.value;
         } else if (e.target.id === 'nombre') {
             newEmp.firstName = e.target.value;
         } else if (e.target.id === 'lastName') {
@@ -112,11 +116,11 @@ const EmpleadoABM = () => {
         } else if (e.target.id === 'cuil') {
             newEmp.cuil = e.target.value;
         } else if (e.target.id === 'rem') {
-            newEmp.SueldoBasico = e.target.value;
+            newEmp.sueldoBasico = e.target.value;
         } else if (e.target.id === 'category') {
-            newEmp.Categoria = e.target.value;
+            newEmp.categoria = e.target.value;
         } else if (e.target.id === 'convenio') {
-            newEmp.Categoria = e.target.value;
+            newEmp.convenio = e.target.value;
         } else if (e.target.id === 'cbu') {
             newEmp.cbu = e.target.value;
         }
@@ -162,15 +166,23 @@ const EmpleadoABM = () => {
             <div className="formNewEmp">
                 <h2>View profile empleado</h2>
                 <label>Legajo: </label>
-                <label>{selectedEmp.id}</label><br/>
+                <label>{selectedEmp.id}</label><br />
                 <label>Nombre: </label>
-                <label>{selectedEmp.firstName + ' ' + selectedEmp.lastName}</label><br/>
+                <label>{selectedEmp.firstName + ' ' + selectedEmp.lastName}</label><br />
                 <label>Documento: </label>
-                <label>{selectedEmp.identifier}</label><br/>
+                <label>{selectedEmp.identifier}</label><br />
+                <label>Categoria: </label>
+                <label>{selectedEmp.categoria}</label><br />
+                <label>Cuil: </label>
+                <label>{selectedEmp.cuil}</label><br />
+                <label>Convenio: </label>
+                <label>{selectedEmp.convenio}</label><br />
+                <label>SueldoBasico: </label>
+                <label>{selectedEmp.sueldoBasico}</label><br />
                 <label>usuario: </label>
-                <label>{selectedEmp.userName}</label><br/>
+                <label>{selectedEmp.userName}</label><br />
                 <label>Es admin: </label>
-                <label>{selectedEmp.isAdmin}</label><br/>
+                <label>{selectedEmp.isAdmin ? "Si" : "No"}</label><br />
             </div>
         )
     }
@@ -190,6 +202,10 @@ const EmpleadoABM = () => {
                 <ListItemText
                     primary={e.lastName}
                     secondary={e.firstName}
+                />
+                <ListItemText
+                    primary={e.categoria}
+                    secondary={e.convenio}
                 />
                 <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="delete" onClick={() => deleteEmpleado(e)}>

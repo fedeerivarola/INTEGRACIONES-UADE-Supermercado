@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, useHistory } from "react-router-dom";
 import { NavBar, AdminLogin, Ventas, ProductoABM, Facturacion, EmpleadoABM } from './components';
 import banner from './assets/kiwki2.jpg'
 
@@ -26,6 +26,7 @@ function App() {
     console.log(user);
     localStorage.setItem('userId', user.id);
     localStorage.setItem('fullname', user.fullName);
+    localStorage.setItem('isAdmin', user.isAdmin);
     setLogok(true);
     setIsAdmin(user.isAdmin);
   }
@@ -33,6 +34,8 @@ function App() {
   function handleLogout() {
     localStorage.removeItem('userId');
     localStorage.removeItem('fullname');
+    localStorage.removeItem('isAdmin');
+
     setLogok(null);
 
   }
@@ -41,7 +44,7 @@ function App() {
 
     // timeOutSession();
 
-    if (isAdmin) {
+    if (localStorage.getItem('isAdmin')) {
       return (
         <div className="App">
           <Router>
@@ -73,13 +76,20 @@ function App() {
 
   } else {
     return (
-      <div className="login">
-        <div className="banner">
-          <img src={banner} alt='banner' />
-        </div>
-        <AdminLogin login={(e) => handleLogin(e)} />
-      </div>
-    )
+      <Router>
+        <Redirect to="/" />
+        <Route exac path="/" render={() => {
+          return (
+            <div className="login">
+              <div className="banner">
+                <img src={banner} alt='banner' />
+              </div>
+              <AdminLogin login={(e) => handleLogin(e)} />
+            </div>
+          )
+        }} />
+      </Router>
+    );
   }
 }
 
