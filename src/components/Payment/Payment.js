@@ -18,6 +18,7 @@ const Payment = (props) => {
     const [selectedMethod, setSelectedMethod] = useState(false);
     const [disableBtnPago, setDisableBtnPago] = useState(false);
     const [newPaymentMethod, setNewPaymentMethod] = useState({ paymentMethod: '', dni: '', number: '', cvv: '', expirationDate: '', name: '', monto: '' });
+    const [errMsg, setErrMsg] = useState(null);
     //const [habilitarFin, setHabilitarFin] = useState(true);
     let habilitarFin = true;
 
@@ -74,13 +75,11 @@ const Payment = (props) => {
             } else if (parseFloat(newPaymentMethod.monto) <= 0) {
                 alert('Ingrese un monto válido')
             } else
-            if(selectedMethod===2||selectedMethod==3){
+            if(selectedMethod===2||selectedMethod===3){
                 if (newPaymentMethod.cvv.length< 3||newPaymentMethod.cvv.length>3){
                     alert('El CVV debe tener 3 dígitos.')
                 } else if(newPaymentMethod.dni.length<8||newPaymentMethod.dni.length>8) {
                     alert('El dni debe tener 8 dígitos.')
-                } else if(newPaymentMethod.number.length<16||newPaymentMethod.number.length>16) {
-                    alert('El número de tarjeta debe tener 16 dígitos.')
                 } else if(newPaymentMethod.expirationDate.length<4||newPaymentMethod.expirationDate.length>4) {
                     alert('La fecha de vencimiento debe tener 4 dígitos.')
                 } else if(newPaymentMethod.name.length<4) {
@@ -145,7 +144,7 @@ const Payment = (props) => {
     function createRequestBody() {
         let details = [];
         items.forEach(it => {
-            details.push({ Product: { SKU: it.sku }, Quantity: it.cantidad })
+            details.push({ Product: { SKU: it.sku }, Quantity: parseInt(it.cantidad) })
         });
         console.log(paymentMethods);
         let body = {
@@ -188,7 +187,8 @@ const Payment = (props) => {
                 if (response.success) {
                     props.fin();
                 } else {
-                    console.log('err')
+                    alert(response.msg);
+                    
                 }
             }
         )
@@ -236,7 +236,7 @@ const Payment = (props) => {
                     <input id='dni' onChange={(e) => handleInput(e)} />
                 </div>
                 <div style={{ paddingBottom: 5 }}>
-                    <label>Numero Tarjeta</label>
+                    <label>Numero Tarjeta / Cuenta</label>
                     <input id='tarjeta' onChange={(e) => handleInput(e)} />
                 </div>
                 <div style={{ paddingBottom: 5 }}>
