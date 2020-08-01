@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './ProductoABM.css'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { Button, Modal, Fade, Backdrop, List, ListItem, ListItemText, ListItemSecondaryAction, TextField } from '@material-ui/core';
 
 
 const ProductoABM = (props) => {
@@ -113,15 +113,15 @@ const ProductoABM = (props) => {
                 <h2>Registrar nuevo producto</h2>
                 <div className="formNewProd">
                     <label>Código</label>
-                    <input id='sku' onChange={(e) => handleInput(e)} />
+                    <TextField id='sku' onChange={(e) => handleInput(e)} />
                     <label>Nombre</label>
-                    <input id='name' onChange={(e) => handleInput(e)} />
+                    <TextField id='name' onChange={(e) => handleInput(e)} />
                     <label>Stock</label>
-                    <input id='stock' type="number" onChange={(e) => handleInput(e)} />
+                    <TextField id='stock' type="number" onChange={(e) => handleInput(e)} />
                     <label>Category</label>
-                    <input id='category' onChange={(e) => handleInput(e)} />
+                    <TextField id='category' onChange={(e) => handleInput(e)} />
                     <label>Precio unitario</label>
-                    <input id='unitPrice' type="number" style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
+                    <TextField id='unitPrice' type="number" style={{ marginBottom: "20px" }} onChange={(e) => handleInput(e)} />
                     {errMsg && <span style={{ color: "red" }}>{errMsg}</span>}<br />
                     <Button variant="contained" color="primary" onClick={() => createProducto()}>REGISTRAR</Button>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './AdminLogin.css'
+import { Button } from '@material-ui/core'
 
 
 const AdminLogin = (props) => {
@@ -62,7 +63,10 @@ const AdminLogin = (props) => {
                 <input type="password" onChange={(e) => handlePass(e)} />
             </form>
             {errMsg && <span style={{ color: "white" }}>{errMsg}</span>}
-            <button style={{ width: "100px", marginTop: "20px" }} onClick={() => handleLogin()}>INGRESAR</button>
+            <Button style={{ width: "100px", marginTop: "20px" }} variant="contained"
+                color="primary"
+                onClick={() => handleLogin()}
+            >INGRESAR</Button>
         </div>
     )
 }
